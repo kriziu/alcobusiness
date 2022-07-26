@@ -3,13 +3,37 @@
 @tailwind utilities;
 
 * {
-  @apply font-montserrat font-medium;
+  @apply font-montserrat font-semibold leading-none text-white focus:outline-none focus:ring focus:ring-orange-500;
+}
+
+@layer components {
+  .gradient {
+    @apply bg-gradient-to-br from-amber-500 to-rose-500;
+  }
+
+  .gradient-text {
+    @apply gradient bg-clip-text text-transparent;
+  }
+
+  .input {
+    @apply rounded-lg bg-zinc-500/40 px-2 py-1 text-lg font-medium placeholder:text-zinc-500;
+  }
+
+  .button {
+    @apply gradient rounded-lg px-2 py-[.5rem] font-bold transition-transform hover:scale-105 active:scale-100;
+  }
+
+  .button-secondary {
+    @apply rounded-lg bg-zinc-600 px-2 py-[.5rem] font-bold transition-transform hover:scale-105 active:scale-100;
+  }
 }
 
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  background-color: black;
 }
+
 html {
   height: -webkit-fill-available;
 }
