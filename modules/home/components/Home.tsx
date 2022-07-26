@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { useList } from 'react-use';
 
 import { useModal } from '@/common/recoil/modal';
@@ -16,16 +17,20 @@ const Home = () => {
     { name: '', id: 1 },
   ]);
 
+  const router = useRouter();
+
   const { openModal } = useModal();
 
   const handleStartGame = () => {
+    router.prefetch('/game');
+
     if (players.some((player) => !player.name)) {
       openModal(<FillAllPlayers />);
     } else {
       openModal(
         <AreYouSure
           handleClick={() => {
-            console.log('123');
+            router.push('/game');
           }}
         />
       );
