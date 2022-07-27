@@ -13,7 +13,8 @@ import {
 } from '../animations/ModalManager.animations';
 
 const ModalManager = () => {
-  const [{ opened, modal }, setModal] = useRecoilState(modalAtom);
+  const [{ opened, modal, closeCallback }, setModal] =
+    useRecoilState(modalAtom);
 
   const [portalNode, setPortalNode] = useState<HTMLElement>();
 
@@ -31,11 +32,19 @@ const ModalManager = () => {
     }
   }, [opened, portalNode]);
 
+  const handleClose = () => {
+    setModal({
+      modal: <></>,
+      opened: false,
+    });
+    if (closeCallback) closeCallback();
+  };
+
   return (
     <Portal>
       <motion.div
         className="z-40 flex min-h-full w-full items-center justify-center bg-black/80"
-        onClick={() => setModal({ modal: <></>, opened: false })}
+        onClick={handleClose}
         variants={bgAnimation}
         initial="closed"
         animate={opened ? 'opened' : 'closed'}
@@ -52,7 +61,7 @@ const ModalManager = () => {
             >
               <button
                 className="absolute right-1 top-1 rounded-lg p-2 text-lg transition-transform hover:scale-105 active:scale-100"
-                onClick={() => setModal({ modal: <></>, opened: false })}
+                onClick={handleClose}
               >
                 <AiOutlineClose />
               </button>

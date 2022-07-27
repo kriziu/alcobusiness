@@ -1,45 +1,71 @@
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useInterval } from 'react-use';
+
+import { usePlayers } from '@/common/recoil/players';
 
 export const useCalculatePosition = (
   dice: number,
-  position: { x: number; y: number }
+  currentPlayerIndex: number
 ) => {
-  const oldDice = useRef(-1);
+  const { players } = usePlayers();
+  const oldPosition = players[currentPlayerIndex].position;
 
-  if (dice === -1 || oldDice.current === dice) {
-    oldDice.current = dice;
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [animationPosition, setAnimationPosition] = useState({ x: 0, y: 0 });
 
-    return position;
-  }
+  useEffect(() => setAnimationPosition(oldPosition), [oldPosition]);
 
-  oldDice.current = dice;
+  useEffect(() => {
+    if (dice === -1) return;
 
-  const { x, y } = position;
+    const { x, y } = oldPosition;
 
-  if (y === 0) {
-    const newX = Math.min(x + dice, 8);
-    const newY = newX === 8 ? dice - (8 - x) : y;
+    let newX = x;
+    let newY = y;
 
-    return { x: newX, y: newY };
-  }
-  if (x === 8) {
-    const newY = Math.min(y + dice, 8);
-    const newX = newY === 8 ? x - (dice - (newY - y)) : x;
+    if (y === 0) {
+      newX = Math.min(x + dice, 8);
+      newY = newX === 8 ? dice - (8 - x) : y;
+    }
+    if (x === 8) {
+      newY = Math.min(y + dice, 8);
+      newX = newY === 8 ? x - (dice - (newY - y)) : x;
+    }
+    if (y === 8) {
+      newX = Math.max(x - dice, 0);
+      newY = newX === 0 ? y - (dice - x) : y;
+    }
+    if (x === 0) {
+      newY = Math.max(y - dice, 0);
+      newX = newY === 0 ? dice - y : x;
+    }
 
-    return { x: newX, y: newY };
-  }
-  if (y === 8) {
-    const newX = Math.max(x - dice, 0);
-    const newY = newX === 0 ? y - (dice - x) : y;
+    setPosition({ x: newX, y: newY });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dice]);
 
-    return { x: newX, y: newY };
-  }
-  if (x === 0) {
-    const newY = Math.max(y - dice, 0);
-    const newX = newY === 0 ? dice - y : x;
+  const animate =
+    (animationPosition.x !== position.x ||
+      animationPosition.y !== position.y) &&
+    dice !== -1;
 
-    return { x: newX, y: newY };
-  }
+  useInterval(
+    () => {
+      const { x, y } = animationPosition;
 
-  return position;
+      if (y === 0 && x !== 8) {
+        setAnimationPosition((prev) => ({ ...prev, x: prev.x + 1 }));
+      } else if (y < 8 && x === 8) {
+        setAnimationPosition((prev) => ({ ...prev, y: prev.y + 1 }));
+      } else if (y === 8 && x !== 0) {
+        setAnimationPosition((prev) => ({ ...prev, x: prev.x - 1 }));
+      } else if (y > 0 && x === 0) {
+        setAnimationPosition((prev) => ({ ...prev, y: prev.y - 1 }));
+      }
+    },
+    animate ? 250 : null
+  );
+
+  return animationPosition;
 };

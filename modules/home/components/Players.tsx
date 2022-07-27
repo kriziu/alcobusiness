@@ -3,14 +3,14 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { ListActions } from 'react-use/lib/useList';
 
 import { inputAnimation } from '../animations/Players.animations';
-import type { Player } from '../home.types';
+import type { PlayerName } from '../home.types';
 
 const Players = ({
   players,
   playersHandler,
 }: {
-  players: Player[];
-  playersHandler: ListActions<Player>;
+  players: PlayerName[];
+  playersHandler: ListActions<PlayerName>;
 }) => {
   return (
     <div>

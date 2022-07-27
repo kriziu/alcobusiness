@@ -1,24 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
 
 import { useModal } from '@/common/recoil/modal';
+import { usePlayers } from '@/common/recoil/players';
 
-import { useAnimatePosition } from '../hooks/useAnimatePosition';
 import { useCalculatePosition } from '../hooks/useCalculatePosition';
 import Dice from './Dice';
 
 const Board = () => {
-  const oldPosition = useRef({ x: 0, y: 0 });
-
-  const [dice, setDice] = useState(-1);
-
+  const { players, movePlayer } = usePlayers();
   const { openModal } = useModal();
 
-  const position = useCalculatePosition(dice, oldPosition.current);
-  oldPosition.current = position;
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+  const [dice, setDice] = useState(-1);
 
-  const realPosition = useAnimatePosition(position);
+  const position = useCalculatePosition(dice, currentPlayerIndex);
+
+  useEffect(() => {
+    movePlayer(currentPlayerIndex, position);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [position]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -26,13 +29,16 @@ const Board = () => {
 
       openModal(<h1>Hello!</h1>);
 
-      setTimeout(() => setDice(-1), 150);
+      setTimeout(() => {
+        setDice(-1);
+        setCurrentPlayerIndex((prev) => (prev + 1) % players.length);
+      }, 150);
     }, 850);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [dice, openModal, realPosition]);
+  }, [dice, openModal, players.length, position]);
 
   return (
     <div className="relative flex w-min flex-col-reverse justify-between gap-1">
@@ -50,26 +56,33 @@ const Board = () => {
               let rotate = right ? 90 : 0;
               if (left) rotate = -90;
 
+              const playersOnTile = players.filter(
+                (player) => player.position.x === x && player.position.y === y
+              );
+
               return (
                 <div
                   className="relative flex h-24 w-24 items-center justify-center rounded-lg bg-zinc-700/40 text-white"
                   key={x}
                 >
                   {`${y}-${x}`}
-                  {y === realPosition.y && x === realPosition.x && (
-                    <motion.p
-                      layout
-                      layoutId="player"
-                      style={{ rotate }}
-                      className={`absolute z-10 p-1
+                  {playersOnTile.map(({ layoutId, name }, index) => {
+                    return (
+                      <motion.p
+                        key={layoutId}
+                        layout
+                        layoutId={layoutId}
+                        style={{ rotate, marginTop: index * 20 }}
+                        className={`absolute z-10 p-1
                     ${bottom && 'top-full'}
                     ${top && 'bottom-full'}
                     ${left && 'right-full'}
                     ${right && 'left-full'}`}
-                    >
-                      olej
-                    </motion.p>
-                  )}
+                      >
+                        {name}
+                      </motion.p>
+                    );
+                  })}
                 </div>
               );
             })}

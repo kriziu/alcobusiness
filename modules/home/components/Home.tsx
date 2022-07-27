@@ -3,16 +3,19 @@ import { useRouter } from 'next/router';
 import { useList } from 'react-use';
 
 import { useModal } from '@/common/recoil/modal';
+import { usePlayers } from '@/common/recoil/players';
 
 import { HomeAnimation } from '../animations/Home.animations';
-import type { Player } from '../home.types';
+import type { PlayerName } from '../home.types';
 import AreYouSure from '../modals/AreYouSure';
 import FillAllPlayers from '../modals/FillAllPlayers';
 import Header from './Header';
 import Players from './Players';
 
 const Home = () => {
-  const [players, playersHandler] = useList<Player>([
+  const { setupPlayers } = usePlayers();
+
+  const [players, playersHandler] = useList<PlayerName>([
     { name: '', id: 0 },
     { name: '', id: 1 },
   ]);
@@ -30,6 +33,7 @@ const Home = () => {
       openModal(
         <AreYouSure
           handleClick={() => {
+            setupPlayers(players);
             router.push('/game');
           }}
         />
