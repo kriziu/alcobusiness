@@ -8,3 +8,18 @@ export type Player = {
   roundsNotDrinking: number;
   isBankrupt: boolean;
 };
+
+export type Place = {
+  name: string;
+  type:
+    | 'go'
+    | 'square'
+    | 'prison'
+    | 'hospital'
+    | 'property'
+    | 'card'
+    | 'specialProperty'
+    | 'allDrink';
+
+  price?: number;
+};

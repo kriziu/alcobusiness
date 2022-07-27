@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { motion } from 'framer-motion';
 
+import { PLACES } from '@/common/contants/PLACES';
+import { convertPositionToIndex } from '@/common/libs/position';
 import { usePlayers } from '@/common/recoil/players';
 
 import { useCalculatePosition } from '../hooks/useCalculatePosition';
@@ -41,12 +43,15 @@ const Board = () => {
                 (player) => player.position.x === x && player.position.y === y
               );
 
+              const posIndex = convertPositionToIndex({ x, y });
+              const place = PLACES[posIndex];
+
               return (
                 <div
                   className="relative flex h-24 w-24 items-center justify-center rounded-lg bg-zinc-700/40 text-white"
                   key={x}
                 >
-                  {`${y}-${x}`}
+                  {place.name}
                   {playersOnTile.map(({ layoutId, name }, index) => {
                     const top = bottomSide ? `${105 + index * 20}%` : undefined;
                     const bottom = topSide ? `${105 + index * 20}%` : undefined;

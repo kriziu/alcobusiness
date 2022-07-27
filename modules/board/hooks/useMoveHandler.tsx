@@ -9,12 +9,12 @@ export const useMoveHandler = (dice: number, callback: () => void) => {
     const timeout = setTimeout(() => {
       if (dice === -1) return;
 
-      openModal(<h1>Next player.</h1>);
+      // openModal(<h1>Next player.</h1>);
 
       setTimeout(() => {
         callback();
-      }, 150);
-    }, 1000);
+      }, 0);
+    }, 0);
 
     return () => {
       clearTimeout(timeout);
