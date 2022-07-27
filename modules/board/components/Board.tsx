@@ -1,44 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { motion } from 'framer-motion';
 
-import { useModal } from '@/common/recoil/modal';
 import { usePlayers } from '@/common/recoil/players';
 
 import { useCalculatePosition } from '../hooks/useCalculatePosition';
+import { useMoveHandler } from '../hooks/useMoveHandler';
 import Dice from './Dice';
 
 const Board = () => {
-  const { players, movePlayer } = usePlayers();
-  const { openModal } = useModal();
+  const { players } = usePlayers();
 
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [dice, setDice] = useState(-1);
 
-  const position = useCalculatePosition(dice, currentPlayerIndex);
+  useCalculatePosition(dice, currentPlayerIndex);
 
-  useEffect(() => {
-    movePlayer(currentPlayerIndex, position);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [position]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (dice === -1) return;
-
-      openModal(<h1>Hello!</h1>);
-
-      setTimeout(() => {
-        setDice(-1);
-        setCurrentPlayerIndex((prev) => (prev + 1) % players.length);
-      }, 150);
-    }, 850);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [dice, openModal, players.length, position]);
+  useMoveHandler(dice, () => {
+    setDice(-1);
+    setCurrentPlayerIndex((currentPlayerIndex + 1) % players.length);
+  });
 
   return (
     <div className="relative flex w-min flex-col-reverse justify-between gap-1">
@@ -48,13 +29,13 @@ const Board = () => {
             {Array.from({ length: 9 }).map((__, x) => {
               if (y > 0 && y < 8 && x !== 0 && x !== 8) return null;
 
-              const left = x === 8 && y !== 0 && y !== 8;
-              const right = x === 0 && y !== 0 && y !== 8;
-              const bottom = y === 0;
-              const top = y === 8;
+              const leftSide = x === 8 && y !== 0 && y !== 8;
+              const rightSide = x === 0 && y !== 0 && y !== 8;
+              const bottomSide = y === 0;
+              const topSide = y === 8;
 
-              let rotate = right ? 90 : 0;
-              if (left) rotate = -90;
+              let rotate = rightSide ? 90 : 0;
+              if (leftSide) rotate = -90;
 
               const playersOnTile = players.filter(
                 (player) => player.position.x === x && player.position.y === y
@@ -67,17 +48,18 @@ const Board = () => {
                 >
                   {`${y}-${x}`}
                   {playersOnTile.map(({ layoutId, name }, index) => {
+                    const top = bottomSide ? `${105 + index * 20}%` : undefined;
+                    const bottom = topSide ? `${105 + index * 20}%` : undefined;
+                    const left = rightSide ? `${105 + index * 20}%` : undefined;
+                    const right = leftSide ? `${105 + index * 20}%` : undefined;
+
                     return (
                       <motion.p
                         key={layoutId}
                         layout
                         layoutId={layoutId}
-                        style={{ rotate, marginTop: index * 20 }}
-                        className={`absolute z-10 p-1
-                    ${bottom && 'top-full'}
-                    ${top && 'bottom-full'}
-                    ${left && 'right-full'}
-                    ${right && 'left-full'}`}
+                        style={{ rotate, top, bottom, left, right }}
+                        className="absolute z-10 p-1"
                       >
                         {name}
                       </motion.p>

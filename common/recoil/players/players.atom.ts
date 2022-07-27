@@ -12,10 +12,6 @@ export const playersAtom = atom<Player[]>({
         x: 0,
         y: 0,
       },
-      tempPosition: {
-        x: 0,
-        y: 0,
-      },
       money: 500,
       placesIds: [],
       hasLeavePrisonCard: false,
@@ -26,10 +22,6 @@ export const playersAtom = atom<Player[]>({
       layoutId: '2',
       name: '2',
       position: {
-        x: 0,
-        y: 0,
-      },
-      tempPosition: {
         x: 0,
         y: 0,
       },

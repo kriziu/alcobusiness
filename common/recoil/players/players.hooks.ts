@@ -15,10 +15,6 @@ export const usePlayers = () => {
         x: 0,
         y: 0,
       },
-      tempPosition: {
-        x: 0,
-        y: 0,
-      },
       money: 500,
       placesIds: [],
       hasLeavePrisonCard: false,
@@ -47,5 +43,7 @@ export const usePlayers = () => {
     setPlayers(newPlayers);
   };
 
-  return { setupPlayers, movePlayer, players };
+  const getPlayer = (playerIndex: number) => players[playerIndex];
+
+  return { setupPlayers, movePlayer, players, getPlayer };
 };
