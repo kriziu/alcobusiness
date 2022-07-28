@@ -7,26 +7,26 @@ export const playersAtom = atom<Player[]>({
   default: [
     {
       layoutId: '1',
-      name: '1',
+      name: 'olej',
       position: {
         x: 0,
         y: 0,
       },
       money: 500,
-      placesIds: [],
+      placesIds: [3, 19, 27],
       hasLeavePrisonCard: false,
       roundsNotDrinking: 0,
       isBankrupt: false,
     },
     {
       layoutId: '2',
-      name: '2',
+      name: 'holec',
       position: {
         x: 0,
         y: 0,
       },
       money: 500,
-      placesIds: [],
+      placesIds: [4, 11],
       hasLeavePrisonCard: false,
       roundsNotDrinking: 0,
       isBankrupt: false,

@@ -3,7 +3,7 @@ export type Player = {
   name: string;
   position: { x: number; y: number };
   money: number;
-  placesIds: string[];
+  placesIds: number[];
   hasLeavePrisonCard: boolean;
   roundsNotDrinking: number;
   isBankrupt: boolean;
