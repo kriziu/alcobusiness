@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 
-import Board from '@/modules/board/components/Board';
+import Board from '@/modules/board';
 
 const GamePage: NextPage = () => {
   return (

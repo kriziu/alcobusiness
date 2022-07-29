@@ -4,13 +4,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
 
-import modalAtom from '@/common/recoil/modal';
+import Portal from '@/common/components/Portal';
 
-import Portal from '../../portal/components/Portal';
 import {
   bgAnimation,
   modalAnimation,
 } from '../animations/ModalManager.animations';
+import { modalAtom } from '../recoil';
 
 const ModalManager = () => {
   const [{ opened, modal, closeCallback }, setModal] =

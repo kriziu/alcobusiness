@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
+import { usePlayers } from '@/common/recoil/players';
 import {
   convertIndexToPosition,
   convertPositionToIndex,
-} from '@/common/libs/position';
-import { usePlayers } from '@/common/recoil/players';
+} from '@/common/utils/position';
 
 export const useCalculatePosition = (
   dice: number,

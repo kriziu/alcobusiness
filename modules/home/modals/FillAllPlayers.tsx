@@ -1,4 +1,4 @@
-import { useModal } from '@/common/recoil/modal';
+import { useModal } from '@/modules/modal';
 
 const FillAllPlayers = () => {
   const { closeModal } = useModal();

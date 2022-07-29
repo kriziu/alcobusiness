@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useList } from 'react-use';
 
-import { useModal } from '@/common/recoil/modal';
 import { usePlayers } from '@/common/recoil/players';
+import { useModal } from '@/modules/modal';
 
 import { HomeAnimation } from '../animations/Home.animations';
 import type { PlayerName } from '../home.types';

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useModal } from '@/common/recoil/modal';
+import { useModal } from '@/modules/modal';
 
 export const useMoveHandler = (dice: number, callback: () => void) => {
   const { openModal } = useModal();

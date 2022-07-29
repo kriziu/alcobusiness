@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 
 import { PLACES } from '@/common/contants/PLACES';
-import { convertPositionToIndex } from '@/common/libs/position';
 import { usePlayers } from '@/common/recoil/players';
+import { convertPositionToIndex } from '@/common/utils/position';
 
 const Tile = ({ x, y }: { x: number; y: number }) => {
   const { players } = usePlayers();
