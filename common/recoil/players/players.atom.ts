@@ -35,7 +35,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
         roundsNotDrinking: 0,
         isBankrupt: false,
         noDrinkRounds: 0,
-        prisonRounds: 0,
+        prisonRounds: 2,
       },
       {
         layoutId: '2',
@@ -174,4 +174,34 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
       },
     ],
   },
+  effects: [
+    ({ onSet, setSelf }) => {
+      onSet((newValue) => {
+        const { players, currentPlayer } = newValue;
+
+        if (players[currentPlayer].isBankrupt) {
+          setSelf({
+            players,
+            currentPlayer: (currentPlayer + 1) % players.length,
+          });
+        }
+        if (players[currentPlayer].prisonRounds > 0) {
+          const newPlayers = players.map((player, index) => {
+            if (index === currentPlayer) {
+              return {
+                ...player,
+                prisonRounds: player.prisonRounds - 1,
+              };
+            }
+            return player;
+          });
+
+          setSelf({
+            players: newPlayers,
+            currentPlayer: (currentPlayer + 1) % players.length,
+          });
+        }
+      });
+    },
+  ],
 });

@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil';
 
+import { PLACES } from '@/common/contants/PLACES';
 import type { PlayerName } from '@/modules/home/home.types';
 
 import { playersAtom } from './players.atom';
@@ -56,6 +57,63 @@ export const usePlayers = () => {
     }));
   };
 
+  const editPlayerRounds = (
+    playerIndex: number,
+    rounds: {
+      prisonRounds?: number;
+      noDrinkRounds?: number;
+    }
+  ) => {
+    const newPlayers = players.map((player, index) => {
+      if (index === playerIndex) {
+        return { ...player, ...rounds };
+      }
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
+
+  const addMoneyToPlayer = (playerIndex: number, money: number) => {
+    const newPlayers = players.map((player, index) => {
+      if (index === playerIndex)
+        return { ...player, money: player.money + money };
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
+
+  const payToPlayer = (payer: number, receiver: number, money: number) => {
+    const newPlayers = players.map((player, index) => {
+      if (index === payer) return { ...player, money: player.money - money };
+
+      if (index === receiver) return { ...player, money: player.money + money };
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
+
+  const buyPlaceByPlayer = (playerIndex: number, placeId: number) => {
+    const newPlayers = players.map((player, index) => {
+      if (index === playerIndex) {
+        return {
+          ...player,
+          placesIds: [...player.placesIds, placeId],
+          money: player.money - (PLACES[placeId].price || 0),
+        };
+      }
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
+
   return {
     setupPlayers,
     movePlayer,
@@ -64,5 +122,9 @@ export const usePlayers = () => {
     currentPlayer,
     getCurrentPlayer,
     nextPlayer,
+    editPlayerRounds,
+    addMoneyToPlayer,
+    payToPlayer,
+    buyPlaceByPlayer,
   };
 };

@@ -10,7 +10,7 @@ export const useCalculatePosition = (dice: number) => {
   const { getCurrentPlayer, movePlayer, currentPlayer } = usePlayers();
 
   useEffect(() => {
-    if (dice === -1) return;
+    if (!dice) return;
 
     const { x, y } = getCurrentPlayer().position;
 

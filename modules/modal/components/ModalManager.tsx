@@ -13,7 +13,7 @@ import {
 import { modalAtom } from '../recoil';
 
 const ModalManager = () => {
-  const [{ opened, modal, closeCallback }, setModal] =
+  const [{ opened, modal, closeCallback, cardCallback }, setModal] =
     useRecoilState(modalAtom);
 
   const [portalNode, setPortalNode] = useState<HTMLElement>();
@@ -38,6 +38,7 @@ const ModalManager = () => {
       opened: false,
     });
     if (closeCallback) closeCallback();
+    if (cardCallback) cardCallback();
   };
 
   return (

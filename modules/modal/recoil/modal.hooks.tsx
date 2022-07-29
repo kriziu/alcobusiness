@@ -13,9 +13,14 @@ const useModal = () => {
   const closeModal = () => {
     setModal({ modal: <></>, opened: false });
     if (modalSettings.closeCallback) modalSettings.closeCallback();
+    if (modalSettings.cardCallback) modalSettings.cardCallback();
   };
 
-  return { openModal, closeModal };
+  const setCardCallback = (callback: () => void) => {
+    setModal({ ...modalSettings, cardCallback: callback });
+  };
+
+  return { openModal, closeModal, setCardCallback };
 };
 
 export { useModal };

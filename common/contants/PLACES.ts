@@ -25,7 +25,7 @@ export const PLACES: Place[] = [
   { name: 'Megok Gorzyce', type: 'property', price: 120 },
   { name: 'Wszyscy piją!', type: 'allDrink' },
   { name: 'Zmyrzlina', type: 'property', price: 120 },
-  { name: 'Szpital', type: 'hospital' },
+  { name: 'WOLO', type: 'hospital' },
   { name: 'Kaliszczok', type: 'property', price: 140 },
   { name: 'Karta', type: 'card' },
   { name: 'Megol', type: 'property', price: 140 },
