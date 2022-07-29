@@ -8,7 +8,7 @@ const Prison = () => {
   const { closeModal } = useModal();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => editPlayerRounds(currentPlayer, { prisonRounds: 2 }), []);
+  useEffect(() => editPlayerRounds(currentPlayer, { prisonRounds: 3 }), []);
 
   return (
     <>

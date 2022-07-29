@@ -47,7 +47,7 @@ const PlayerUI = ({
         <div className="flex items-center gap-3 text-lg">
           <p>{name}</p>
           <p className="text-green-400">${money}</p>
-          <p className="text-xs text-yellow-300">{PLACES[index].name}</p>
+          <p className="text-xs text-yellow-300">{PLACES[index]?.name}</p>
         </div>
 
         <button className="button-secondary">Bancrupt</button>

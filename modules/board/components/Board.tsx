@@ -10,13 +10,16 @@ import Tile from './Tile';
 const Board = () => {
   const { nextPlayer } = usePlayers();
 
-  const [dice, setDice] = useState(-1);
+  const [dice, setDice] = useState(0);
+  const [doubleDice, setDoubleDice] = useState(false);
 
   useCalculatePosition(dice);
 
   useMoveHandler(dice, () => {
-    nextPlayer();
-    setDice(-1);
+    if (!doubleDice) nextPlayer();
+
+    setDice(0);
+    setDoubleDice(false);
   });
 
   return (
@@ -33,7 +36,7 @@ const Board = () => {
         );
       })}
 
-      <Dice setDice={setDice} dice={dice} />
+      <Dice setDice={setDice} dice={dice} setDoubleDice={setDoubleDice} />
     </div>
   );
 };

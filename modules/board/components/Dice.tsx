@@ -13,48 +13,74 @@ import { IoDice } from 'react-icons/io5';
 const Dice = ({
   dice,
   setDice,
+  setDoubleDice,
 }: {
   dice: number;
   setDice: Dispatch<SetStateAction<number>>;
+  setDoubleDice: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [tempDice, setTempDice] = useState(-1);
+  const [tempDice, setTempDice] = useState(0);
+  const [tempDice2, setTempDice2] = useState(0);
 
   useEffect(() => {
-    setTempDice(dice);
+    if (dice === 0) {
+      setTempDice(dice);
+      setTempDice2(dice);
+    }
   }, [dice]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setDice(tempDice);
+      if (tempDice === tempDice2 && tempDice !== 0) setDoubleDice(true);
+      setDice(tempDice + tempDice2);
     }, 300);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [setDice, tempDice]);
+  }, [setDice, setDoubleDice, tempDice, tempDice2]);
 
   const handleRollDice = () => {
-    if (tempDice === -1)
+    if (!tempDice)
       for (let i = 0; i < 25; i += 1)
         setTimeout(() => {
           const newDice = Math.floor(Math.random() * 6) + 1;
           setTempDice(newDice);
+
+          const newDice2 = Math.floor(Math.random() * 6) + 1;
+          setTempDice2(newDice2);
         }, i * 25);
+  };
+
+  const renderDice = (basedDice: number) => {
+    switch (basedDice) {
+      case 1:
+        return <BsDice1Fill />;
+      case 2:
+        return <BsDice2Fill />;
+      case 3:
+        return <BsDice3Fill />;
+      case 4:
+        return <BsDice4Fill />;
+      case 5:
+        return <BsDice5Fill />;
+      case 6:
+        return <BsDice6Fill />;
+      default:
+        return <IoDice />;
+    }
   };
 
   return (
     <button
-      className="button absolute top-1/2 left-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+      className={`button absolute top-1/2 left-1/2 flex h-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center ${
+        !tempDice ? 'gap-2' : 'gap-10'
+      }`}
       onClick={handleRollDice}
-      style={{ fontSize: tempDice === -1 ? '4rem' : '3rem' }}
+      style={{ fontSize: !tempDice ? '4rem' : '3rem' }}
     >
-      {tempDice === -1 && <IoDice />}
-      {tempDice === 1 && <BsDice1Fill />}
-      {tempDice === 2 && <BsDice2Fill />}
-      {tempDice === 3 && <BsDice3Fill />}
-      {tempDice === 4 && <BsDice4Fill />}
-      {tempDice === 5 && <BsDice5Fill />}
-      {tempDice === 6 && <BsDice6Fill />}
+      {renderDice(tempDice)}
+      {renderDice(tempDice2)}
     </button>
   );
 };
