@@ -8,16 +8,15 @@ import Dice from './Dice';
 import Tile from './Tile';
 
 const Board = () => {
-  const { players } = usePlayers();
+  const { nextPlayer } = usePlayers();
 
-  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [dice, setDice] = useState(-1);
 
-  useCalculatePosition(dice, currentPlayerIndex);
+  useCalculatePosition(dice);
 
   useMoveHandler(dice, () => {
+    nextPlayer();
     setDice(-1);
-    setCurrentPlayerIndex((currentPlayerIndex + 1) % players.length);
   });
 
   return (

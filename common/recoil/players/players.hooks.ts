@@ -5,7 +5,7 @@ import type { PlayerName } from '@/modules/home/home.types';
 import { playersAtom } from './players.atom';
 
 export const usePlayers = () => {
-  const [players, setPlayers] = useRecoilState(playersAtom);
+  const [{ players, currentPlayer }, setPlayers] = useRecoilState(playersAtom);
 
   const setupPlayers = (playersNames: PlayerName[]) => {
     const newPlayers = playersNames.map(({ id, name }) => ({
@@ -20,9 +20,11 @@ export const usePlayers = () => {
       hasLeavePrisonCard: false,
       roundsNotDrinking: 0,
       isBankrupt: false,
+      noDrinkRounds: 0,
+      prisonRounds: 0,
     }));
 
-    setPlayers(newPlayers);
+    setPlayers({ players: newPlayers, currentPlayer: 0 });
   };
 
   const movePlayer = (
@@ -40,10 +42,27 @@ export const usePlayers = () => {
       return player;
     });
 
-    setPlayers(newPlayers);
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
   };
 
   const getPlayer = (playerIndex: number) => players[playerIndex];
 
-  return { setupPlayers, movePlayer, players, getPlayer };
+  const getCurrentPlayer = () => players[currentPlayer];
+
+  const nextPlayer = () => {
+    setPlayers((prev) => ({
+      ...prev,
+      currentPlayer: (prev.currentPlayer + 1) % players.length,
+    }));
+  };
+
+  return {
+    setupPlayers,
+    movePlayer,
+    players,
+    getPlayer,
+    currentPlayer,
+    getCurrentPlayer,
+    nextPlayer,
+  };
 };

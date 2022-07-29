@@ -45,7 +45,7 @@ const Tile = ({ x, y }: { x: number; y: number }) => {
             writingMode: leftSide || rightSide ? 'vertical-lr' : 'initial',
             rotate: rightSide ? 180 : 0,
           }}
-          className={`absolute z-10 p-1 text-violet-400
+          className={`absolute text-violet-400
           ${leftSide && 'left-[105%]'}
           ${rightSide && 'right-[105%]'}
           ${bottomSide && 'bottom-[105%]'}
@@ -75,7 +75,7 @@ const Tile = ({ x, y }: { x: number; y: number }) => {
               writingMode: leftSide || rightSide ? 'vertical-lr' : 'initial',
               rotate: leftSide ? 180 : 0,
             }}
-            className="absolute z-10 p-1"
+            className="absolute"
             transition={{ duration: 0.7 }}
           >
             {player.name}

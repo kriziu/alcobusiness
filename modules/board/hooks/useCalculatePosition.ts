@@ -6,21 +6,18 @@ import {
   convertPositionToIndex,
 } from '@/common/utils/position';
 
-export const useCalculatePosition = (
-  dice: number,
-  currentPlayerIndex: number
-) => {
-  const { getPlayer, movePlayer } = usePlayers();
+export const useCalculatePosition = (dice: number) => {
+  const { getCurrentPlayer, movePlayer, currentPlayer } = usePlayers();
 
   useEffect(() => {
     if (dice === -1) return;
 
-    const { x, y } = getPlayer(currentPlayerIndex).position;
+    const { x, y } = getCurrentPlayer().position;
 
     const index = convertPositionToIndex({ x, y });
     const newPosition = convertIndexToPosition(index + dice);
 
-    movePlayer(currentPlayerIndex, newPosition);
+    movePlayer(currentPlayer, newPosition);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dice]);
 };
