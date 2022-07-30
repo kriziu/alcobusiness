@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 
 import type { Player } from '@/common/types';
+import { convertPositionToIndex } from '@/common/utils/position';
 
 export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
   key: 'players',
@@ -102,6 +103,31 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           players: newPlayers,
           currentPlayer: newIndex,
         });
+      });
+    },
+    ({ onSet, setSelf }) => {
+      onSet((newValue, old) => {
+        const oldValue = old as { players: Player[]; currentPlayer: number };
+
+        const oldPlayer = oldValue.players[newValue.currentPlayer];
+        const newPlayer = newValue.players[newValue.currentPlayer];
+
+        const oldIndex = convertPositionToIndex(oldPlayer.position);
+        const newIndex = convertPositionToIndex(newPlayer.position);
+
+        if (newIndex < oldIndex)
+          setSelf({
+            ...newValue,
+            players: newValue.players.map((player, index) => {
+              if (index === newValue.currentPlayer)
+                return {
+                  ...player,
+                  money: player.money + 200,
+                };
+
+              return player;
+            }),
+          });
       });
     },
   ],
