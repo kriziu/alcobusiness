@@ -14,6 +14,7 @@ const DrinkMoney = ({
   callback: () => void;
   oldCloseCallback?: () => void;
 }) => {
+  console.log('what');
   const { closeModal, setModal } = useModal();
 
   const { getPlayer, addMoneyToPlayer, bankruptPlayer } = usePlayers();

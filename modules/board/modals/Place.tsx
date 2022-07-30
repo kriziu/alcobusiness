@@ -26,7 +26,10 @@ const PlaceModal = (place: Place) => {
   useEffect(() => {
     if (!place.price) return;
 
+    console.log('price');
+
     if (getCurrentPlayer().money < place.price) {
+      console.log('123');
       drinkMoneyPlayer(currentPlayer, place.price, () =>
         setModal(modalSettings)
       );
@@ -36,13 +39,19 @@ const PlaceModal = (place: Place) => {
   }, []);
 
   useEffect(() => {
+    if (!place.price) return;
+
     if (ownedBy === currentPlayer)
       setCardCallback(() => {
         if (place.type === 'specialProperty')
           addMoneyToPlayer(currentPlayer, 50);
         else addMoneyToPlayer(currentPlayer, place.price || 0);
       });
-    else if (ownedBy !== -1 && place.type === 'specialProperty')
+    else if (
+      ownedBy !== -1 &&
+      place.type === 'specialProperty' &&
+      getCurrentPlayer().money > place.price
+    )
       setCardCallback(() => payToPlayer(currentPlayer, ownedBy, 50));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

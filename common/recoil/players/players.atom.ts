@@ -34,7 +34,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,
         isBankrupt: false,
-        prisonRounds: 2,
+        prisonRounds: 0,
       },
       {
         layoutId: '2',
@@ -47,7 +47,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
         placesIds: [],
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,
-        isBankrupt: true,
+        isBankrupt: false,
         prisonRounds: 0,
       },
       {
@@ -62,7 +62,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,
         isBankrupt: false,
-        prisonRounds: 2,
+        prisonRounds: 0,
       },
     ],
   },
