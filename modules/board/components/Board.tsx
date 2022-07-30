@@ -15,11 +15,17 @@ const Board = () => {
 
   useCalculatePosition(dice);
 
-  useMoveHandler(dice, () => {
-    if (!doubleDice) nextPlayer();
+  useMoveHandler(dice, {
+    callback: () => {
+      if (!doubleDice) nextPlayer();
 
-    setDice(0);
-    setDoubleDice(false);
+      setDice(0);
+      setDoubleDice(false);
+    },
+    prisonCallback: () => {
+      setDice(0);
+      setDoubleDice(false);
+    },
   });
 
   return (

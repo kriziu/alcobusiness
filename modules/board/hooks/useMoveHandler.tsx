@@ -11,7 +11,13 @@ import Hospital from '../modals/Hospital';
 import PlaceModal from '../modals/Place';
 import Prison from '../modals/Prison';
 
-export const useMoveHandler = (dice: number, callback: () => void) => {
+export const useMoveHandler = (
+  dice: number,
+  {
+    callback,
+    prisonCallback,
+  }: { callback: () => void; prisonCallback: () => void }
+) => {
   const { getCurrentPlayer, players } = usePlayers();
   const { openModal } = useModal();
 
@@ -24,13 +30,13 @@ export const useMoveHandler = (dice: number, callback: () => void) => {
 
       if (place.type === 'allDrink') openModal(<AllDrink />, callback);
       if (place.type === 'card') openModal(<Card />, callback);
-      if (place.type === 'prison') openModal(<Prison />, callback);
+      if (place.type === 'prison') openModal(<Prison />, prisonCallback);
       if (place.type === 'hospital') openModal(<Hospital />, callback);
 
       if (place.type === 'property' || place.type === 'specialProperty')
         openModal(<PlaceModal {...place} />, callback);
 
-      if (place.type === 'square') callback();
+      if (place.type === 'square' || place.type === 'go') callback();
     }, 900);
 
     return () => {

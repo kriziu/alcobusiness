@@ -49,9 +49,7 @@ const PlaceModal = (place: Place) => {
   }, []);
 
   const handleBuy = () => {
-    if (!place.price) return;
-
-    if (getCurrentPlayer().money < place.price) return;
+    if (!place.price || getCurrentPlayer().money < place.price) return;
 
     buyPlaceByPlayer(currentPlayer, getPlaceIndex(place));
 
