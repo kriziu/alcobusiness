@@ -24,3 +24,10 @@ export type Place = {
 
   price?: number;
 };
+
+export type Card = {
+  name: string;
+  type: 'none' | 'pay' | 'get' | 'move';
+  value?: number;
+  placeIndex?: number;
+};

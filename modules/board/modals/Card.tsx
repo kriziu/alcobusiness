@@ -14,7 +14,7 @@ const Card = () => {
   return (
     <>
       <h1 className="text-lg">Karta!</h1>
-      <p className="mt-2 text-sm text-zinc-400">{CARDS[randomCard]}</p>
+      <p className="mt-2 text-sm text-zinc-400">{CARDS[randomCard].name}</p>
       <button className="button mt-4 w-full" onClick={closeModal}>
         młyn
       </button>

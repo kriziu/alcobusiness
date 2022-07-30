@@ -7,7 +7,7 @@ const Hospital = () => {
     <>
       <h1 className="text-lg">Gdzieś to zalazł...</h1>
       <p className="mt-2 text-sm text-zinc-400">
-        Przy 2 następnych okazjach nie pijesz. (pamiętaj o tym)
+        Przy 2 następnych okazjach nie pijesz (chyba, że potrzebujesz kasy).
       </p>
       <button className="button mt-4 w-full" onClick={closeModal}>
         młyn
