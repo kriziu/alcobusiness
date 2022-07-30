@@ -28,13 +28,29 @@ export const useMoveHandler = (
       const player = getCurrentPlayer();
       const place = PLACES[convertPositionToIndex(player.position)];
 
-      if (place.type === 'allDrink') openModal(<AllDrink />, callback);
-      if (place.type === 'card') openModal(<Card />, callback);
-      if (place.type === 'prison') openModal(<Prison />, prisonCallback);
-      if (place.type === 'hospital') openModal(<Hospital />, callback);
+      if (place.type === 'allDrink')
+        openModal(<AllDrink />, {
+          closeCallback: callback,
+          clickToClose: true,
+        });
+
+      if (place.type === 'card')
+        openModal(<Card />, { closeCallback: callback });
+
+      if (place.type === 'prison')
+        openModal(<Prison />, {
+          closeCallback: prisonCallback,
+          clickToClose: true,
+        });
+
+      if (place.type === 'hospital')
+        openModal(<Hospital />, {
+          closeCallback: callback,
+          clickToClose: true,
+        });
 
       if (place.type === 'property' || place.type === 'specialProperty')
-        openModal(<PlaceModal {...place} />, callback);
+        openModal(<PlaceModal {...place} />, { closeCallback: callback });
 
       if (place.type === 'square' || place.type === 'go') callback();
     }, 900);

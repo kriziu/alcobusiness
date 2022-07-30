@@ -10,7 +10,6 @@ export const useDrinkMoney = () => {
     haveToPay: number,
     callback: () => void
   ) => {
-    console.log('drink');
     openModal(
       <DrinkMoney
         playerIndex={playerIndex}

@@ -7,20 +7,18 @@ const useModal = () => {
 
   const openModal = (
     modal: JSX.Element | JSX.Element[],
-    closeCallback?: () => void
-  ) => setModal({ modal, opened: true, closeCallback });
+    {
+      clickToClose,
+      closeCallback,
+    }: { clickToClose?: boolean; closeCallback?: () => void } = {}
+  ) => setModal({ modal, opened: true, closeCallback, clickToClose });
 
   const closeModal = () => {
     if (modalSettings.closeCallback) modalSettings.closeCallback();
-    if (modalSettings.cardCallback) modalSettings.cardCallback();
     setModal({ modal: <></>, opened: false });
   };
 
-  const setCardCallback = (callback: () => void) => {
-    setModal({ ...modalSettings, cardCallback: callback });
-  };
-
-  return { openModal, closeModal, setCardCallback, modalSettings, setModal };
+  return { openModal, closeModal, modalSettings, setModal };
 };
 
 export { useModal };

@@ -93,6 +93,20 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           return index;
         };
 
+        if (players[currentPlayer].prisonRounds === 3) {
+          setSelf({
+            players: newPlayers.map((player, index) => {
+              if (index === currentPlayer)
+                return { ...player, prisonRounds: 2 };
+
+              return player;
+            }),
+            currentPlayer,
+          });
+
+          return;
+        }
+
         if (
           players[currentPlayer].isBankrupt ||
           players[currentPlayer].prisonRounds > 0

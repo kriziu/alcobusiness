@@ -13,7 +13,7 @@ import {
 import { modalAtom } from '../recoil';
 
 const ModalManager = () => {
-  const [{ opened, modal, closeCallback, cardCallback }, setModal] =
+  const [{ opened, modal, closeCallback, clickToClose }, setModal] =
     useRecoilState(modalAtom);
 
   const [portalNode, setPortalNode] = useState<HTMLElement>();
@@ -38,14 +38,13 @@ const ModalManager = () => {
       opened: false,
     });
     if (closeCallback) closeCallback();
-    if (cardCallback) cardCallback();
   };
 
   return (
     <Portal>
       <motion.div
         className="z-40 flex min-h-full w-full items-center justify-center bg-black/80"
-        onClick={handleClose}
+        onClick={() => clickToClose && handleClose()}
         variants={bgAnimation}
         initial="closed"
         animate={opened ? 'opened' : 'closed'}
@@ -60,12 +59,14 @@ const ModalManager = () => {
               onClick={(e) => e.stopPropagation()}
               className="relative flex w-full max-w-[20rem] flex-col items-center rounded-lg bg-zinc-900 p-6 sm:w-auto sm:min-w-[20rem] sm:max-w-none"
             >
-              <button
-                className="absolute right-1 top-1 rounded-lg p-2 text-lg transition-transform hover:scale-105 active:scale-100"
-                onClick={handleClose}
-              >
-                <AiOutlineClose />
-              </button>
+              {clickToClose && (
+                <button
+                  className="absolute right-1 top-1 rounded-lg p-2 text-lg transition-transform hover:scale-105 active:scale-100"
+                  onClick={handleClose}
+                >
+                  <AiOutlineClose />
+                </button>
+              )}
 
               {modal}
             </motion.div>

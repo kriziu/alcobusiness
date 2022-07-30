@@ -17,8 +17,9 @@ const PlaceModal = (place: Place) => {
     addMoneyToPlayer,
     getPlayer,
     payToPlayer,
+    bankruptPlayer,
   } = usePlayers();
-  const { closeModal, setCardCallback, modalSettings, setModal } = useModal();
+  const { closeModal, modalSettings, setModal } = useModal();
   const { drinkMoneyPlayer } = useDrinkMoney();
 
   const ownedBy = placeOwnedBy(place, players);
@@ -26,41 +27,36 @@ const PlaceModal = (place: Place) => {
   useEffect(() => {
     if (!place.price) return;
 
-    console.log('price');
-
-    if (getCurrentPlayer().money < place.price) {
-      console.log('123');
+    if (getCurrentPlayer().money < place.price)
       drinkMoneyPlayer(currentPlayer, place.price, () =>
         setModal(modalSettings)
       );
-    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (!place.price) return;
+  const handlePay = () => {
+    payToPlayer(currentPlayer, ownedBy, 50);
+    closeModal();
+  };
 
-    if (ownedBy === currentPlayer)
-      setCardCallback(() => {
-        if (place.type === 'specialProperty')
-          addMoneyToPlayer(currentPlayer, 50);
-        else addMoneyToPlayer(currentPlayer, place.price || 0);
-      });
-    else if (
-      ownedBy !== -1 &&
-      place.type === 'specialProperty' &&
-      getCurrentPlayer().money > place.price
-    )
-      setCardCallback(() => payToPlayer(currentPlayer, ownedBy, 50));
+  const handleObtainMoney = () => {
+    if (place.type === 'specialProperty') addMoneyToPlayer(currentPlayer, 50);
+    else addMoneyToPlayer(currentPlayer, place.price || 0);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    closeModal();
+  };
 
   const handleBuy = () => {
     if (!place.price || getCurrentPlayer().money < place.price) return;
 
     buyPlaceByPlayer(currentPlayer, getPlaceIndex(place));
+
+    closeModal();
+  };
+
+  const handleBankrupt = () => {
+    bankruptPlayer(currentPlayer);
 
     closeModal();
   };
@@ -111,7 +107,10 @@ const PlaceModal = (place: Place) => {
 
       {ownedBy !== -1 && ownedBy !== currentPlayer && (
         <div className="flex w-full gap-2">
-          <button className="button-secondary mt-4 flex-1" onClick={() => {}}>
+          <button
+            className="button-secondary mt-4 flex-1"
+            onClick={handleBankrupt}
+          >
             Bankrupt
           </button>
           {place.type === 'property' && (
@@ -120,15 +119,23 @@ const PlaceModal = (place: Place) => {
             </button>
           )}
           {place.type === 'specialProperty' && (
-            <button className="button mt-4 flex-1" onClick={closeModal}>
+            <button className="button mt-4 flex-1" onClick={handlePay}>
               Pay
             </button>
           )}
         </div>
       )}
 
-      {ownedBy !== -1 && ownedBy === currentPlayer && (
-        <button className="button mt-4 w-full">essa</button>
+      {ownedBy === currentPlayer && place.type === 'property' && (
+        <button className="button mt-4 w-full" onClick={closeModal}>
+          essa
+        </button>
+      )}
+
+      {ownedBy === currentPlayer && place.type === 'specialProperty' && (
+        <button className="button mt-4 w-full" onClick={handleObtainMoney}>
+          essa
+        </button>
       )}
     </>
   );

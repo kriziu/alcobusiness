@@ -45,10 +45,10 @@ const Dice = ({
       for (let i = 0; i < 25; i += 1)
         setTimeout(() => {
           const newDice = Math.floor(Math.random() * 6) + 1;
-          setTempDice(3);
+          setTempDice(newDice);
 
           const newDice2 = Math.floor(Math.random() * 6) + 1;
-          setTempDice2(4);
+          setTempDice2(newDice2);
         }, i * 25);
   };
 

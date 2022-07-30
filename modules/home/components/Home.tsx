@@ -28,7 +28,7 @@ const Home = () => {
     router.prefetch('/game');
 
     if (players.some((player) => !player.name)) {
-      openModal(<FillAllPlayers />);
+      openModal(<FillAllPlayers />, { clickToClose: true });
     } else {
       openModal(
         <AreYouSure
@@ -36,7 +36,8 @@ const Home = () => {
             setupPlayers(players);
             router.push('/game');
           }}
-        />
+        />,
+        { clickToClose: true }
       );
     }
   };

@@ -3,8 +3,8 @@ import { atom } from 'recoil';
 export const modalAtom = atom<{
   modal: JSX.Element | JSX.Element[];
   opened: boolean;
+  clickToClose?: boolean;
   closeCallback?: () => void;
-  cardCallback?: () => void;
 }>({
   key: 'modal',
   default: {
