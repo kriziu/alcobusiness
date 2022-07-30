@@ -4,11 +4,11 @@ import { usePlayers } from '@/common/recoil/players';
 import { useModal } from '@/modules/modal';
 
 const Prison = () => {
-  const { editPlayerRounds, currentPlayer } = usePlayers();
+  const { editPlayerPrisonRounds, currentPlayer } = usePlayers();
   const { closeModal } = useModal();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => editPlayerRounds(currentPlayer, { prisonRounds: 3 }), []);
+  useEffect(() => editPlayerPrisonRounds(currentPlayer, 3), []);
 
   return (
     <>

@@ -57,16 +57,13 @@ export const usePlayers = () => {
     }));
   };
 
-  const editPlayerRounds = (
+  const editPlayerPrisonRounds = (
     playerIndex: number,
-    rounds: {
-      prisonRounds?: number;
-      noDrinkRounds?: number;
-    }
+    prisonRounds: number
   ) => {
     const newPlayers = players.map((player, index) => {
       if (index === playerIndex) {
-        return { ...player, ...rounds };
+        return { ...player, prisonRounds };
       }
 
       return player;
@@ -114,6 +111,20 @@ export const usePlayers = () => {
     setPlayers((prev) => ({ ...prev, players: newPlayers }));
   };
 
+  const bankruptPlayer = (playerIndex: number) => {
+    const newPlayers = players.map((player, index) => {
+      if (index === playerIndex) {
+        return { ...player, money: 0, isBankrupt: true };
+      }
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+
+    // nextPlayer();
+  };
+
   return {
     setupPlayers,
     movePlayer,
@@ -122,9 +133,10 @@ export const usePlayers = () => {
     currentPlayer,
     getCurrentPlayer,
     nextPlayer,
-    editPlayerRounds,
+    editPlayerPrisonRounds,
     addMoneyToPlayer,
     payToPlayer,
     buyPlaceByPlayer,
+    bankruptPlayer,
   };
 };

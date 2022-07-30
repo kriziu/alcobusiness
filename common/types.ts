@@ -7,7 +7,6 @@ export type Player = {
   hasLeavePrisonCard: boolean;
   roundsNotDrinking: number;
   isBankrupt: boolean;
-  noDrinkRounds: number;
   prisonRounds: number;
 };
 

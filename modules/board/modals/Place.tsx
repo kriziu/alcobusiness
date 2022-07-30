@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { usePlayers } from '@/common/recoil/players';
 import type { Place } from '@/common/types';
 import { getPlaceIndex } from '@/common/utils/place';
+import { useDrinkMoney } from '@/modules/drinkmoney';
 import { useModal } from '@/modules/modal';
 
 import { placeOwnedBy } from '../utils/placeOwnedBy';
@@ -17,9 +18,22 @@ const PlaceModal = (place: Place) => {
     getPlayer,
     payToPlayer,
   } = usePlayers();
-  const { closeModal, setCardCallback } = useModal();
+  const { closeModal, setCardCallback, modalSettings, setModal } = useModal();
+  const { drinkMoneyPlayer } = useDrinkMoney();
 
   const ownedBy = placeOwnedBy(place, players);
+
+  useEffect(() => {
+    if (!place.price) return;
+
+    if (getCurrentPlayer().money < place.price) {
+      drinkMoneyPlayer(currentPlayer, place.price, () =>
+        setModal(modalSettings)
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (ownedBy === currentPlayer)
@@ -91,7 +105,7 @@ const PlaceModal = (place: Place) => {
       {ownedBy !== -1 && ownedBy !== currentPlayer && (
         <div className="flex w-full gap-2">
           <button className="button-secondary mt-4 flex-1" onClick={() => {}}>
-            Bancrupt
+            Bankrupt
           </button>
           {place.type === 'property' && (
             <button className="button mt-4 flex-1" onClick={closeModal}>

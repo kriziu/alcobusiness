@@ -20,7 +20,7 @@ const useModal = () => {
     setModal({ ...modalSettings, cardCallback: callback });
   };
 
-  return { openModal, closeModal, setCardCallback };
+  return { openModal, closeModal, setCardCallback, modalSettings, setModal };
 };
 
 export { useModal };

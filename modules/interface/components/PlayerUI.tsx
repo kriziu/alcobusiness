@@ -13,7 +13,6 @@ const PlayerUI = ({
   money,
   placesIds,
   prisonRounds,
-  noDrinkRounds,
   isBankrupt,
   isCurrentPlayer,
   position,
@@ -50,7 +49,7 @@ const PlayerUI = ({
           <p className="text-xs text-yellow-300">{PLACES[index]?.name}</p>
         </div>
 
-        <button className="button-secondary">Bancrupt</button>
+        <button className="button-secondary">Bankrupt</button>
       </div>
 
       {placesIds.length !== 0 && (
@@ -63,15 +62,8 @@ const PlayerUI = ({
         </div>
       )}
 
-      {(prisonRounds !== 0 || noDrinkRounds !== 0) && (
-        <div className="mt-2 flex gap-2">
-          {prisonRounds !== 0 && (
-            <p className="text-orange-300">In prison: {prisonRounds}</p>
-          )}
-          {noDrinkRounds !== 0 && (
-            <p className="text-yellow-300">No drink: {noDrinkRounds}</p>
-          )}
-        </div>
+      {prisonRounds !== 0 && (
+        <div className="mt-2 text-red-500">In prison: {prisonRounds}</div>
       )}
     </div>
   );

@@ -14,12 +14,11 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           x: 0,
           y: 0,
         },
-        money: 800,
+        money: 40,
         placesIds: [],
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,
         isBankrupt: false,
-        noDrinkRounds: 0,
         prisonRounds: 0,
       },
       {
@@ -29,12 +28,11 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           x: 0,
           y: 0,
         },
-        money: 800,
+        money: 40,
         placesIds: [],
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,
         isBankrupt: false,
-        noDrinkRounds: 0,
         prisonRounds: 2,
       },
       {
@@ -44,12 +42,11 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           x: 0,
           y: 0,
         },
-        money: 800,
+        money: 40,
         placesIds: [],
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
+        isBankrupt: true,
         prisonRounds: 0,
       },
       {
@@ -59,117 +56,11 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           x: 0,
           y: 0,
         },
-        money: 800,
+        money: 40,
         placesIds: [],
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,
         isBankrupt: false,
-        noDrinkRounds: 0,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '5',
-        name: 'chudy',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '6',
-        name: 'sekul',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '7',
-        name: 'tomaczi',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '8',
-        name: 'cmoku',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '9',
-        name: 'steryd',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '10',
-        name: 'dziecielska',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '11',
-        name: 'dusti',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        noDrinkRounds: 0,
         prisonRounds: 0,
       },
     ],
@@ -179,28 +70,35 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
       onSet((newValue) => {
         const { players, currentPlayer } = newValue;
 
-        if (players[currentPlayer].isBankrupt) {
-          setSelf({
-            players,
-            currentPlayer: (currentPlayer + 1) % players.length,
-          });
-        }
-        if (players[currentPlayer].prisonRounds > 0) {
-          const newPlayers = players.map((player, index) => {
-            if (index === currentPlayer) {
-              return {
-                ...player,
-                prisonRounds: player.prisonRounds - 1,
-              };
-            }
-            return player;
-          });
+        let newIndex = currentPlayer;
+        let newPlayers = players;
 
-          setSelf({
-            players: newPlayers,
-            currentPlayer: (currentPlayer + 1) % players.length,
-          });
-        }
+        const incrementToNextPlayer = (index: number): number => {
+          if (players[index].isBankrupt || players[index].prisonRounds > 0) {
+            if (players[index].prisonRounds > 0)
+              newPlayers = newPlayers.map((player, playerIndex) => {
+                if (playerIndex === index)
+                  return { ...player, prisonRounds: player.prisonRounds - 1 };
+
+                return player;
+              });
+
+            return incrementToNextPlayer((index + 1) % players.length);
+          }
+
+          return index;
+        };
+
+        if (
+          players[currentPlayer].isBankrupt ||
+          players[currentPlayer].prisonRounds > 0
+        )
+          newIndex = incrementToNextPlayer(currentPlayer);
+
+        setSelf({
+          players: newPlayers,
+          currentPlayer: newIndex,
+        });
       });
     },
   ],
