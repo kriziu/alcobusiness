@@ -7,5 +7,3 @@ const HomePage: NextPage = () => {
 };
 
 export default HomePage;
-
-// Dodac karty z placeniem w Card modal

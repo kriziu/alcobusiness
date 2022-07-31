@@ -91,26 +91,26 @@ export const CARDS: Card[] = [
   },
 
   { name: 'Płacisz $100.', type: 'pay', value: 100 },
-  {
-    name: 'Płacisz każdemu po $50, który wypije twoje zdrowie.',
-    type: 'pay',
-    value: 50,
-  },
-  {
-    name: 'Najbogatsza osoba płaci $100 najbiedniejszej i pije jej zdrowie.',
-    type: 'pay',
-    value: 100,
-  },
+  // {
+  //   name: 'Płacisz każdemu po $50, który wypije twoje zdrowie.',
+  //   type: 'pay',
+  //   value: 50,
+  // },
+  // {
+  //   name: 'Najbogatsza osoba płaci $100 najbiedniejszej i pije jej zdrowie.',
+  //   type: 'pay',
+  //   value: 100,
+  // },
 
-  { name: 'Dostajesz $200.', type: 'get', value: 100 },
-  {
-    name: 'Dostajesz $100 od każdego, chyba że ten wypije 1x.',
-    type: 'get',
-    value: 100,
-  },
-  {
-    name: 'Za każdego wypitego dostajesz po $100 od banku.',
-    type: 'get',
-    value: 100,
-  },
+  { name: 'Dostajesz $200.', type: 'get', value: 200 },
+  // {
+  //   name: 'Dostajesz $100 od każdego, chyba że ten wypije 1x.',
+  //   type: 'get',
+  //   value: 100,
+  // },
+  // {
+  //   name: 'Za każdego wypitego dostajesz po $100 od banku.',
+  //   type: 'get',
+  //   value: 100,
+  // },
 ];

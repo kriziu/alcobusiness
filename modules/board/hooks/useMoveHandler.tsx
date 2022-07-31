@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 
+import { CARDS } from '@/common/contants/CARDS';
 import { PLACES } from '@/common/contants/PLACES';
 import { usePlayers } from '@/common/recoil/players';
 import { convertPositionToIndex } from '@/common/utils/position';
 import { useModal } from '@/modules/modal';
 
 import AllDrink from '../modals/AllDrink';
-import Card from '../modals/Card';
+import CardModal from '../modals/Card';
 import Hospital from '../modals/Hospital';
 import PlaceModal from '../modals/Place';
 import Prison from '../modals/Prison';
@@ -34,8 +35,13 @@ export const useMoveHandler = (
           clickToClose: true,
         });
 
-      if (place.type === 'card')
-        openModal(<Card />, { closeCallback: callback });
+      if (place.type === 'card') {
+        const randomCard = Math.floor(Math.random() * CARDS.length);
+        const card = CARDS[randomCard];
+        openModal(<CardModal card={card} />, {
+          closeCallback: card.type === 'move' ? undefined : callback,
+        });
+      }
 
       if (place.type === 'prison')
         openModal(<Prison />, {
