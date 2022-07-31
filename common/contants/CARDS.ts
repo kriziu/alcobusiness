@@ -10,11 +10,11 @@ export const CARDS: Card[] = [
     type: 'none',
   },
   {
-    name: 'Wszyscy piją oprócz ciebie.',
+    name: 'Wszyscy pijom oprócz ciebie.',
     type: 'none',
   },
   {
-    name: 'Wszyscy piją.',
+    name: 'Wszyscy pijom',
     type: 'none',
   },
   {

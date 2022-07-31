@@ -25,7 +25,7 @@ const Tile = ({ x, y }: { x: number; y: number }) => {
 
   return (
     <div
-      className={`relative flex h-28 w-28 flex-col items-center justify-center gap-2 rounded-lg text-sm text-white
+      className={`relative flex h-[4.9vw] w-[4.9vw] flex-col items-center justify-center gap-2 rounded-lg text-[.63vw] text-white
       ${type === 'property' && 'bg-zinc-700/60'}
       ${type === 'card' && 'bg-blue-600/60'}
       ${type === 'specialProperty' && 'bg-zinc-400/60'}
