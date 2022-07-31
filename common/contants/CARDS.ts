@@ -35,11 +35,6 @@ export const CARDS: Card[] = [
   },
 
   {
-    name: 'Wywieźli cię na pole start.',
-    type: 'move',
-    placeIndex: 0,
-  },
-  {
     name: 'Wywieźli cię na WOLO.',
     type: 'move',
     placeIndex: 24,
