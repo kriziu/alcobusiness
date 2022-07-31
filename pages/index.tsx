@@ -7,3 +7,7 @@ const HomePage: NextPage = () => {
 };
 
 export default HomePage;
+
+// ZROBIC KARTY DO KONCA
+// NAPRAWIC JAKIES BUGI JAK BEDA
+// EKRAN WYGRANEJ GRY

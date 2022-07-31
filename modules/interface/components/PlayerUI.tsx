@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 
 import { PLACES } from '@/common/contants/PLACES';
+import { usePlayers } from '@/common/recoil/players';
 import type { Player } from '@/common/types';
 import { convertPositionToIndex } from '@/common/utils/position';
 
 interface Props extends Player {
   isCurrentPlayer: boolean;
+  playerIndex: number;
 }
 
 const PlayerUI = ({
@@ -16,7 +18,10 @@ const PlayerUI = ({
   isBankrupt,
   isCurrentPlayer,
   position,
+  playerIndex,
 }: Props) => {
+  const { bankruptPlayer } = usePlayers();
+
   if (isBankrupt) {
     return (
       <div className="h-max w-2/3 rounded-xl bg-zinc-800/80 py-5 px-9 text-sm">
@@ -49,7 +54,12 @@ const PlayerUI = ({
           <p className="text-xs text-yellow-300">{PLACES[index]?.name}</p>
         </div>
 
-        <button className="button-secondary">Bankrupt</button>
+        <button
+          className="button-secondary"
+          onClick={() => bankruptPlayer(playerIndex)}
+        >
+          Bankrupt
+        </button>
       </div>
 
       {placesIds.length !== 0 && (

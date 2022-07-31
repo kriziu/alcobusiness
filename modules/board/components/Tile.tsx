@@ -62,6 +62,8 @@ const Tile = ({ x, y }: { x: number; y: number }) => {
         const left = rightSide ? `${105 + index * 20}%` : undefined;
         const right = leftSide ? `${105 + index * 20}%` : undefined;
 
+        if (player.isBankrupt) return null;
+
         return (
           <motion.p
             key={player.layoutId}

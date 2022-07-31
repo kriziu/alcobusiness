@@ -12,6 +12,7 @@ const PlayerList = () => {
           key={index}
           {...player}
           isCurrentPlayer={currentPlayer === index}
+          playerIndex={index}
         />
       ))}
     </div>
