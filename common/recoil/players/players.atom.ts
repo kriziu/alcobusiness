@@ -7,64 +7,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
   key: 'players',
   default: {
     currentPlayer: 0,
-    players: [
-      {
-        layoutId: '0',
-        name: 'olej',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '1',
-        name: 'holec',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '2',
-        name: 'walec',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        prisonRounds: 0,
-      },
-      {
-        layoutId: '4',
-        name: 'hohlik',
-        position: {
-          x: 0,
-          y: 0,
-        },
-        money: 800,
-        placesIds: [],
-        hasLeavePrisonCard: false,
-        roundsNotDrinking: 0,
-        isBankrupt: false,
-        prisonRounds: 0,
-      },
-    ],
+    players: [],
   },
   effects: [
     ({ onSet, setSelf }) => {
@@ -122,6 +65,10 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
     ({ onSet, setSelf }) => {
       onSet((newValue, old) => {
         const oldValue = old as { players: Player[]; currentPlayer: number };
+
+        if (oldValue.players.length === 0) return;
+
+        console.log('oldValue', oldValue);
 
         const oldPlayer = oldValue.players[newValue.currentPlayer];
         const newPlayer = newValue.players[newValue.currentPlayer];
