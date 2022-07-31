@@ -68,8 +68,6 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
 
         if (oldValue.players.length === 0) return;
 
-        console.log('oldValue', oldValue);
-
         const oldPlayer = oldValue.players[newValue.currentPlayer];
         const newPlayer = newValue.players[newValue.currentPlayer];
 
