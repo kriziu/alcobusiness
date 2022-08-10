@@ -75,6 +75,7 @@ const Dice = ({
     setDice(value);
   };
 
+  // @ts-ignore TODO: REMOVE THIS
   window.rollDice = rollDice;
 
   return (

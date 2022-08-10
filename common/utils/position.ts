@@ -1,5 +1,5 @@
 export const convertIndexToPosition = (index: number) => {
-  const goodIndex = index % 33;
+  const goodIndex = index % 32;
 
   if (goodIndex <= 8) {
     return { x: goodIndex, y: 0 };
