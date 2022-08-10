@@ -16,13 +16,16 @@ const DrinkMoney = ({
 }) => {
   const { closeModal, setModal } = useModal();
 
-  const { getPlayer, addMoneyToPlayer, bankruptPlayer } = usePlayers();
+  const { getPlayer, addMoneyToPlayer, bankruptPlayer, addDrinkedTimes } =
+    usePlayers();
 
   const player = getPlayer(playerIndex);
   const toDrink = Math.ceil((haveToPay - player.money) / 100);
 
   const handleDrink = () => {
     addMoneyToPlayer(playerIndex, toDrink * 100);
+    addDrinkedTimes(playerIndex, toDrink);
+
     closeModal();
     callback();
   };

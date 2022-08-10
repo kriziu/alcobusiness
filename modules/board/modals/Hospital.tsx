@@ -1,7 +1,14 @@
+import { useEffect } from 'react';
+
+import { usePlayers } from '@/common/recoil/players';
 import { useModal } from '@/modules/modal';
 
 const Hospital = () => {
+  const { currentPlayer, editPlayerNoDrinkTimes } = usePlayers();
   const { closeModal } = useModal();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => editPlayerNoDrinkTimes(currentPlayer, 2), []);
 
   return (
     <>

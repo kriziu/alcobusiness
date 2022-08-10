@@ -19,8 +19,7 @@ export const useMoveHandler = (
     prisonCallback,
   }: { callback: () => void; prisonCallback: () => void }
 ) => {
-  const { getCurrentPlayer, players, editPlayerNoDrinkTimes, currentPlayer } =
-    usePlayers();
+  const { getCurrentPlayer, players } = usePlayers();
   const { openModal } = useModal();
 
   useEffect(() => {
@@ -51,10 +50,7 @@ export const useMoveHandler = (
 
       if (place.type === 'hospital')
         openModal(<Hospital />, {
-          closeCallback: () => {
-            editPlayerNoDrinkTimes(currentPlayer, 2);
-            callback();
-          },
+          closeCallback: callback,
           clickToClose: true,
         });
 

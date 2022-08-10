@@ -170,6 +170,18 @@ export const usePlayers = () => {
     setPlayers((prev) => ({ ...prev, players: newPlayers }));
   };
 
+  const addDrinkedTimes = (playerIndex: number, value: number) => {
+    const newPlayers = players.map((player, index) => {
+      if (index === playerIndex) {
+        return { ...player, drinkedTimes: player.drinkedTimes + value };
+      }
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
+
   return {
     setupPlayers,
     movePlayer,
@@ -186,5 +198,6 @@ export const usePlayers = () => {
     bankruptPlayer,
     allDrinks,
     drinkPlayers,
+    addDrinkedTimes,
   };
 };

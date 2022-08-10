@@ -23,8 +23,6 @@ const Board = () => {
       setDoubleDice(false);
     },
     prisonCallback: () => {
-      nextPlayer();
-
       setDice(0);
       setDoubleDice(false);
     },

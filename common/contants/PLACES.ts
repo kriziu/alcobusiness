@@ -15,7 +15,7 @@ export const PLACES: Place[] = [
   { name: 'Biedronka', type: 'property', price: 80 },
   { name: 'PKP Czyżowice', type: 'specialProperty', price: 150 },
   { name: 'Zmyrzlina', type: 'property', price: 90 },
-  { name: 'Wszyscy pijom', type: 'allDrinks' },
+  { name: 'Balaton', type: 'property', price: 90 },
   { name: 'Kaliszczok', type: 'property', price: 90 },
   { name: 'Wytrzeźwialka', type: 'prison' },
   { name: 'Gomola', type: 'property', price: 110 },
@@ -31,6 +31,6 @@ export const PLACES: Place[] = [
   { name: 'Piwnica', type: 'property', price: 140 },
   { name: 'PKP Wodzisław', type: 'specialProperty', price: 150 },
   { name: 'Stodoła', type: 'property', price: 150 },
-  { name: 'Wszyscy pijom', type: 'allDrinks' },
+  { name: 'Koń', type: 'property', price: 150 },
   { name: 'Akacjowa 16', type: 'property', price: 150 },
 ];
