@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { PLACES } from '@/common/contants/PLACES';
 import { usePlayers } from '@/common/recoil/players';
 import type { Place } from '@/common/types';
 import { getPlaceIndex } from '@/common/utils/place';
@@ -25,6 +26,14 @@ const PlaceModal = (place: Place) => {
 
   const ownedBy = placeOwnedBy(place, players);
 
+  let specialPropertyCount = 0;
+  if (ownedBy !== -1)
+    specialPropertyCount = getPlayer(ownedBy).placesIds.reduce(
+      (prev, placeId) =>
+        PLACES[placeId].type === 'specialProperty' ? prev + 1 : prev,
+      0
+    );
+
   useEffect(() => {
     if (!place.price) return;
 
@@ -37,12 +46,13 @@ const PlaceModal = (place: Place) => {
   }, []);
 
   const handlePay = () => {
-    payToPlayer(currentPlayer, ownedBy, 50);
+    payToPlayer(currentPlayer, ownedBy, 50 * specialPropertyCount);
     closeModal();
   };
 
   const handleObtainMoney = () => {
-    if (place.type === 'specialProperty') addMoneyToPlayer(currentPlayer, 50);
+    if (place.type === 'specialProperty')
+      addMoneyToPlayer(currentPlayer, 50 * specialPropertyCount);
     else addMoneyToPlayer(currentPlayer, place.price || 0);
 
     closeModal();
@@ -86,7 +96,8 @@ const PlaceModal = (place: Place) => {
             <p>Miejsce kupione przez: {getPlayer(ownedBy).name}</p>
             <p className="mt-2 text-center text-base text-orange-500">
               {place.type === 'property' && 'Pijesz 1x.'}
-              {place.type === 'specialProperty' && 'Płacisz $50.'}
+              {place.type === 'specialProperty' &&
+                `Płacisz $${50 * specialPropertyCount}.`}
             </p>
           </>
         )}
@@ -96,7 +107,8 @@ const PlaceModal = (place: Place) => {
             <p>Miejsce kupione przez Ciebie</p>
             <p className="mt-2 text-center text-base text-green-400">
               {place.type === 'property' && `Otrzymujesz $${place.price}.`}
-              {place.type === 'specialProperty' && 'Otrzymujesz $50.'}
+              {place.type === 'specialProperty' &&
+                `Otrzymujesz $${50 * specialPropertyCount}.`}
             </p>
           </>
         )}
