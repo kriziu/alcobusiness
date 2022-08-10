@@ -18,6 +18,7 @@ const PlaceModal = (place: Place) => {
     getPlayer,
     payToPlayer,
     bankruptPlayer,
+    drinkPlayers,
   } = usePlayers();
   const { closeModal, modalSettings, setModal } = useModal();
   const { drinkMoneyPlayer } = useDrinkMoney();
@@ -57,6 +58,12 @@ const PlaceModal = (place: Place) => {
 
   const handleBankrupt = () => {
     bankruptPlayer(currentPlayer);
+
+    closeModal();
+  };
+
+  const handleDrink = () => {
+    drinkPlayers([currentPlayer]);
 
     closeModal();
   };
@@ -114,7 +121,7 @@ const PlaceModal = (place: Place) => {
             Bankrupt
           </button>
           {place.type === 'property' && (
-            <button className="button mt-4 flex-1" onClick={closeModal}>
+            <button className="button mt-4 flex-1" onClick={handleDrink}>
               Drink
             </button>
           )}
