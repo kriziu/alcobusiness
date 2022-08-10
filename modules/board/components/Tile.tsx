@@ -29,7 +29,7 @@ const Tile = ({ x, y }: { x: number; y: number }) => {
       ${type === 'property' && 'bg-zinc-700/60'}
       ${type === 'card' && 'bg-blue-600/60'}
       ${type === 'specialProperty' && 'bg-zinc-400/60'}
-      ${type === 'allDrink' && 'bg-green-600/60'}
+      ${type === 'allDrinks' && 'bg-green-600/60'}
       ${type === 'square' && 'bg-purple-600/60'}
       ${type === 'prison' && 'bg-red-600/60'}
       ${type === 'hospital' && 'bg-yellow-600/60'}

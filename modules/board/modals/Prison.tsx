@@ -8,13 +8,13 @@ const Prison = () => {
   const { closeModal } = useModal();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => editPlayerPrisonRounds(currentPlayer, 3), []);
+  useEffect(() => editPlayerPrisonRounds(currentPlayer, 1), []);
 
   return (
     <>
       <h1 className="text-lg">Złapali cię!</h1>
       <p className="mt-2 text-sm text-zinc-400">
-        Siedzisz przez 2 kolejne rundy (picie cię nie omija).
+        Siedzisz przez 1 kolejną rundę (picie cię omija).
       </p>
       <button className="button mt-4 w-full" onClick={closeModal}>
         młyn

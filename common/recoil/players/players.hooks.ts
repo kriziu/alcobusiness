@@ -21,8 +21,9 @@ export const usePlayers = () => {
       hasLeavePrisonCard: false,
       roundsNotDrinking: 0,
       isBankrupt: false,
-      noDrinkRounds: 0,
+      noDrinkTimes: 0,
       prisonRounds: 0,
+      drinkedTimes: 0,
     }));
 
     setPlayers({ players: newPlayers, currentPlayer: 0 });
@@ -57,13 +58,28 @@ export const usePlayers = () => {
     }));
   };
 
+  const editPlayerNoDrinkTimes = (playerIndex: number, value: number) => {
+    const newPlayers = players.map((player, index) => {
+      if (index === playerIndex) {
+        return {
+          ...player,
+          noDrinkTimes: value,
+        };
+      }
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
+
   const editPlayerPrisonRounds = (
     playerIndex: number,
     prisonRounds: number
   ) => {
     const newPlayers = players.map((player, index) => {
       if (index === playerIndex) {
-        return { ...player, prisonRounds };
+        return { ...player, prisonRounds: prisonRounds + 1 };
       }
 
       return player;
@@ -121,8 +137,37 @@ export const usePlayers = () => {
     });
 
     setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
 
-    // nextPlayer();
+  const allDrinks = () => {
+    const newPlayers = players.map((player) => {
+      if (player.prisonRounds !== 0) return player;
+      if (player.noDrinkTimes !== 0)
+        return { ...player, noDrinkTimes: player.noDrinkTimes - 1 };
+
+      return {
+        ...player,
+        drinkedTimes: player.drinkedTimes + 1,
+      };
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
+  };
+
+  const drinkPlayers = (playersIndexes: number[], value: number = 1) => {
+    const newPlayers = players.map((player, index) => {
+      if (playersIndexes.includes(index)) {
+        if (player.prisonRounds !== 0) return player;
+        if (player.noDrinkTimes !== 0)
+          return { ...player, noDrinkTimes: player.noDrinkTimes - 1 };
+
+        return { ...player, drinkedTimes: player.drinkedTimes + value };
+      }
+
+      return player;
+    });
+
+    setPlayers((prev) => ({ ...prev, players: newPlayers }));
   };
 
   return {
@@ -133,10 +178,13 @@ export const usePlayers = () => {
     currentPlayer,
     getCurrentPlayer,
     nextPlayer,
+    editPlayerNoDrinkTimes,
     editPlayerPrisonRounds,
     addMoneyToPlayer,
     payToPlayer,
     buyPlaceByPlayer,
     bankruptPlayer,
+    allDrinks,
+    drinkPlayers,
   };
 };

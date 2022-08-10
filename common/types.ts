@@ -8,6 +8,8 @@ export type Player = {
   roundsNotDrinking: number;
   isBankrupt: boolean;
   prisonRounds: number;
+  drinkedTimes: number;
+  noDrinkTimes: number;
 };
 
 export type Place = {
@@ -20,14 +22,26 @@ export type Place = {
     | 'property'
     | 'card'
     | 'specialProperty'
-    | 'allDrink';
+    | 'allDrinks';
 
   price?: number;
 };
 
 export type Card = {
   name: string;
-  type: 'none' | 'pay' | 'get' | 'move';
+  type:
+    | 'drink'
+    | 'allDrinks'
+    | 'drinkPick'
+    | 'noDrink'
+    | 'challenge'
+    | 'pay'
+    | 'payWhoDrinks'
+    | 'payAndDrinkRichest'
+    | 'get'
+    | 'getFromAll'
+    | 'getFromDrink'
+    | 'move';
   value?: number;
   placeIndex?: number;
 };

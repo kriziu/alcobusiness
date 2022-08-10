@@ -19,6 +19,8 @@ const PlayerUI = ({
   isCurrentPlayer,
   position,
   playerIndex,
+  drinkedTimes,
+  noDrinkTimes,
 }: Props) => {
   const { bankruptPlayer } = usePlayers();
 
@@ -62,6 +64,18 @@ const PlayerUI = ({
         </button>
       </div>
 
+      <div className="text-zinc-400">Drinked times: {drinkedTimes}</div>
+
+      {prisonRounds !== 0 && (
+        <div className="mt-1 text-red-500">In prison: {prisonRounds}</div>
+      )}
+
+      {noDrinkTimes !== 0 && (
+        <div className="mt-1 text-yellow-500">
+          No drink times: {noDrinkTimes}
+        </div>
+      )}
+
       {placesIds.length !== 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
           {placesIds.map((placeId) => (
@@ -70,10 +84,6 @@ const PlayerUI = ({
             </p>
           ))}
         </div>
-      )}
-
-      {prisonRounds !== 0 && (
-        <div className="mt-2 text-red-500">In prison: {prisonRounds}</div>
       )}
     </div>
   );

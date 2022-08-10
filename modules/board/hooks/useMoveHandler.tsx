@@ -29,10 +29,9 @@ export const useMoveHandler = (
       const player = getCurrentPlayer();
       const place = PLACES[convertPositionToIndex(player.position)];
 
-      if (place.type === 'allDrink')
+      if (place.type === 'allDrinks')
         openModal(<AllDrink />, {
           closeCallback: callback,
-          clickToClose: true,
         });
 
       if (place.type === 'card') {
