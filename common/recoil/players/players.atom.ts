@@ -81,7 +81,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
               if (index === newValue.currentPlayer)
                 return {
                   ...player,
-                  money: player.money + 200,
+                  money: player.money + 50,
                 };
 
               return player;
