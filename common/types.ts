@@ -12,36 +12,42 @@ export type Player = {
   noDrinkTimes: number;
 };
 
+export enum PlaceType {
+  GO,
+  SQUARE,
+  PRISON,
+  HOSPITAL,
+  PROPERTY,
+  CARD,
+  SPECIAL_PROPERTY,
+  ALL_DRINKS,
+}
+
 export type Place = {
   name: string;
-  type:
-    | 'go'
-    | 'square'
-    | 'prison'
-    | 'hospital'
-    | 'property'
-    | 'card'
-    | 'specialProperty'
-    | 'allDrinks';
+  type: PlaceType;
 
   price?: number;
 };
 
+export enum CardType {
+  DRINK,
+  ALL_DRINKS,
+  PICK_WHO_DRINKS,
+  NO_DRINK,
+  CHALLENGE,
+  PAY,
+  PAY_WHO_DRINKS,
+  PAY_AND_DRINK_RICHEST,
+  GET,
+  GET_FROM_ALL,
+  GET_FROM_DRINK,
+  MOVE,
+}
+
 export type Card = {
   name: string;
-  type:
-    | 'drink'
-    | 'allDrinks'
-    | 'drinkPick'
-    | 'noDrink'
-    | 'challenge'
-    | 'pay'
-    | 'payWhoDrinks'
-    | 'payAndDrinkRichest'
-    | 'get'
-    | 'getFromAll'
-    | 'getFromDrink'
-    | 'move';
+  type: CardType;
   value?: number;
   placeIndex?: number;
 };

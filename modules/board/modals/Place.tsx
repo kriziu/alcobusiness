@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { PLACES } from '@/common/contants/PLACES';
 import { usePlayers } from '@/common/recoil/players';
-import type { Place } from '@/common/types';
+import { Place, PlaceType } from '@/common/types';
 import { getPlaceIndex } from '@/common/utils/place';
 import { useDrinkMoney } from '@/modules/drinkmoney';
 import { useModal } from '@/modules/modal';
@@ -30,7 +30,7 @@ const PlaceModal = (place: Place) => {
   if (ownedBy !== -1)
     specialPropertyCount = getPlayer(ownedBy).placesIds.reduce(
       (prev, placeId) =>
-        PLACES[placeId].type === 'specialProperty' ? prev + 1 : prev,
+        PLACES[placeId].type === PlaceType.SPECIAL_PROPERTY ? prev + 1 : prev,
       0
     );
 
@@ -51,7 +51,7 @@ const PlaceModal = (place: Place) => {
   };
 
   const handleObtainMoney = () => {
-    if (place.type === 'specialProperty')
+    if (place.type === PlaceType.SPECIAL_PROPERTY)
       addMoneyToPlayer(currentPlayer, 50 * specialPropertyCount);
     else addMoneyToPlayer(currentPlayer, place.price || 0);
 
@@ -95,8 +95,8 @@ const PlaceModal = (place: Place) => {
           <>
             <p>Miejsce kupione przez: {getPlayer(ownedBy).name}</p>
             <p className="mt-2 text-center text-base text-orange-500">
-              {place.type === 'property' && 'Pijesz 1x.'}
-              {place.type === 'specialProperty' &&
+              {place.type === PlaceType.PROPERTY && 'Pijesz 1x.'}
+              {place.type === PlaceType.SPECIAL_PROPERTY &&
                 `Płacisz $${50 * specialPropertyCount}.`}
             </p>
           </>
@@ -106,8 +106,9 @@ const PlaceModal = (place: Place) => {
           <>
             <p>Miejsce kupione przez Ciebie</p>
             <p className="mt-2 text-center text-base text-green-400">
-              {place.type === 'property' && `Otrzymujesz $${place.price}.`}
-              {place.type === 'specialProperty' &&
+              {place.type === PlaceType.PROPERTY &&
+                `Otrzymujesz $${place.price}.`}
+              {place.type === PlaceType.SPECIAL_PROPERTY &&
                 `Otrzymujesz $${50 * specialPropertyCount}.`}
             </p>
           </>
@@ -132,12 +133,12 @@ const PlaceModal = (place: Place) => {
           >
             Bankrupt
           </button>
-          {place.type === 'property' && (
+          {place.type === PlaceType.PROPERTY && (
             <button className="button mt-4 flex-1" onClick={handleDrink}>
               Drink
             </button>
           )}
-          {place.type === 'specialProperty' && (
+          {place.type === PlaceType.SPECIAL_PROPERTY && (
             <button className="button mt-4 flex-1" onClick={handlePay}>
               Pay
             </button>
@@ -145,13 +146,13 @@ const PlaceModal = (place: Place) => {
         </div>
       )}
 
-      {ownedBy === currentPlayer && place.type === 'property' && (
+      {ownedBy === currentPlayer && place.type === PlaceType.PROPERTY && (
         <button className="button mt-4 w-full" onClick={closeModal}>
           essa
         </button>
       )}
 
-      {ownedBy === currentPlayer && place.type === 'specialProperty' && (
+      {ownedBy === currentPlayer && place.type === PlaceType.SPECIAL_PROPERTY && (
         <button className="button mt-4 w-full" onClick={handleObtainMoney}>
           essa
         </button>

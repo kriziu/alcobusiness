@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 
 import { PLACES } from '@/common/contants/PLACES';
 import { usePlayers } from '@/common/recoil/players';
+import { PlaceType } from '@/common/types';
 import { convertPositionToIndex } from '@/common/utils/position';
 
 const Tile = ({ x, y }: { x: number; y: number }) => {
@@ -26,14 +27,14 @@ const Tile = ({ x, y }: { x: number; y: number }) => {
   return (
     <div
       className={`relative flex h-[4.9vw] w-[4.9vw] flex-col items-center justify-center gap-2 rounded-lg text-[.63vw] text-white
-      ${type === 'property' && 'bg-zinc-700/60'}
-      ${type === 'card' && 'bg-blue-600/60'}
-      ${type === 'specialProperty' && 'bg-zinc-400/60'}
-      ${type === 'allDrinks' && 'bg-green-600/60'}
-      ${type === 'square' && 'bg-purple-600/60'}
-      ${type === 'prison' && 'bg-red-600/60'}
-      ${type === 'hospital' && 'bg-yellow-600/60'}
-      ${type === 'go' && 'bg-cyan-400/60'}`}
+      ${type === PlaceType.PROPERTY && 'bg-zinc-700/60'}
+      ${type === PlaceType.CARD && 'bg-blue-600/60'}
+      ${type === PlaceType.SPECIAL_PROPERTY && 'bg-zinc-400/60'}
+      ${type === PlaceType.ALL_DRINKS && 'bg-green-600/60'}
+      ${type === PlaceType.SQUARE && 'bg-purple-600/60'}
+      ${type === PlaceType.PRISON && 'bg-red-600/60'}
+      ${type === PlaceType.HOSPITAL && 'bg-yellow-600/60'}
+      ${type === PlaceType.GO && 'bg-cyan-400/60'}`}
       key={x}
     >
       <p className="w-min text-center">{name}</p>

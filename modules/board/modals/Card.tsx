@@ -1,5 +1,5 @@
 import { usePlayers } from '@/common/recoil/players';
-import type { Card } from '@/common/types';
+import { Card, CardType } from '@/common/types';
 import { convertIndexToPosition } from '@/common/utils/position';
 import { useModal } from '@/modules/modal';
 
@@ -16,8 +16,8 @@ const CardModal = ({ card }: { card: Card }) => {
   const { closeModal } = useModal();
 
   const handleClose = () => {
-    if (card.type === 'drink') drinkPlayers([currentPlayer], card.value);
-    else if (card.type === 'allDrinks') {
+    if (card.type === CardType.DRINK) drinkPlayers([currentPlayer], card.value);
+    else if (card.type === CardType.ALL_DRINKS) {
       if (card.value === 0) allDrinks();
       else if (card.value === -1)
         drinkPlayers(
@@ -34,13 +34,13 @@ const CardModal = ({ card }: { card: Card }) => {
 
         drinkPlayers([smallerIndex, currentPlayer, higherIndex]);
       }
-    } else if (card.type === 'noDrink')
+    } else if (card.type === CardType.NO_DRINK)
       editPlayerNoDrinkTimes(currentPlayer, card.value || 1);
-    else if (card.type === 'pay' && card.value)
+    else if (card.type === CardType.PAY && card.value)
       addMoneyToPlayer(currentPlayer, -card.value);
-    else if (card.type === 'get' && card.value)
+    else if (card.type === CardType.GET && card.value)
       addMoneyToPlayer(currentPlayer, card.value);
-    else if (card.type === 'move' && card.placeIndex) {
+    else if (card.type === CardType.MOVE && card.placeIndex) {
       movePlayer(currentPlayer, convertIndexToPosition(card.placeIndex));
     }
 
