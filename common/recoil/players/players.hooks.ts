@@ -123,7 +123,7 @@ export const usePlayers = () => {
       receiverIndex: number;
       amount: number;
     },
-    callback: () => void
+    callback?: () => void
   ) => {
     if (players[payerIndex].money < amount)
       drinkMoneyPlayer(payerIndex, amount, () => setModal(modalSettings));
@@ -142,13 +142,13 @@ export const usePlayers = () => {
         return { ...prev, players: newPlayers };
       });
 
-      callback();
+      if (callback) callback();
     }
   };
 
   const buyPlaceByPlayer = (
     { playerIndex, placeId }: { playerIndex: number; placeId: number },
-    callback: () => void
+    callback?: () => void
   ) => {
     if (players[playerIndex].money < (PLACES[placeId].price || 0))
       drinkMoneyPlayer(playerIndex, PLACES[placeId].price || 0, () =>
@@ -171,7 +171,7 @@ export const usePlayers = () => {
         return { ...prev, players: newPlayers };
       });
 
-      callback();
+      if (callback) callback();
     }
   };
 

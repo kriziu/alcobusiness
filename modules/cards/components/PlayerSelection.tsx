@@ -19,7 +19,7 @@ const PlayerSelection = ({
   };
 
   return (
-    <div>
+    <div className="my-3 w-full px-5">
       {players.map((player, index) => (
         <button
           key={index}

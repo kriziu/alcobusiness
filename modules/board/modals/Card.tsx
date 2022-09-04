@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
+
 import { usePlayers } from '@/common/recoil/players';
 import { Card, CardType } from '@/common/types';
 import { convertIndexToPosition } from '@/common/utils/position';
-import { PickWhoDrinks } from '@/modules/cards';
+import { PayForDrink, PickWhoDrinks } from '@/modules/cards';
 import { useModal } from '@/modules/modal';
 
 const CardModal = ({ card }: { card: Card }) => {
@@ -16,6 +18,27 @@ const CardModal = ({ card }: { card: Card }) => {
     editPlayerNoDrinkTimes,
   } = usePlayers();
   const { closeModal, openModal, modalSettings } = useModal();
+
+  useEffect(() => {
+    switch (card.type) {
+      case CardType.PICK_WHO_DRINKS:
+        openModal(<PickWhoDrinks card={card} />, {
+          closeCallback: modalSettings.closeCallback,
+        });
+        break;
+
+      case CardType.PAY_WHO_DRINKS:
+        openModal(<PayForDrink card={card} />, {
+          closeCallback: modalSettings.closeCallback,
+        });
+        break;
+
+      default:
+        break;
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClose = () => {
     switch (card.type) {
@@ -66,28 +89,46 @@ const CardModal = ({ card }: { card: Card }) => {
           movePlayer(currentPlayer, convertIndexToPosition(card.placeIndex));
         break;
 
-      case CardType.PICK_WHO_DRINKS:
-        openModal(<PickWhoDrinks />, {
-          closeCallback: modalSettings.closeCallback,
-        });
-        break;
-
       default:
         break;
     }
 
-    const customClosingCards = [CardType.PICK_WHO_DRINKS, CardType.PAY];
+    if (card.type !== CardType.PAY) closeModal();
+  };
 
-    if (!customClosingCards.includes(card.type)) closeModal();
+  const handleChallenge = (done: boolean) => {
+    drinkPlayers([currentPlayer], done ? 1 : 2);
+
+    closeModal();
   };
 
   return (
     <>
       <h1 className="text-lg">Karta!</h1>
       <p className="mt-2 text-sm text-zinc-400">{card.name}</p>
-      <button className="button mt-4 w-full" onClick={handleClose}>
-        młyn
-      </button>
+
+      {card.type === CardType.CHALLENGE && (
+        <div className="flex w-full gap-3">
+          <button
+            className="button mt-4 w-full"
+            onClick={() => handleChallenge(true)}
+          >
+            Zrobione
+          </button>
+          <button
+            className="button-secondary mt-4 w-full"
+            onClick={() => handleChallenge(false)}
+          >
+            Kara
+          </button>
+        </div>
+      )}
+
+      {card.type !== CardType.CHALLENGE && (
+        <button className="button mt-4 w-full" onClick={handleClose}>
+          młyn
+        </button>
+      )}
     </>
   );
 };

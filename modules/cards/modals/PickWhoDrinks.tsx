@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import { usePlayers } from '@/common/recoil/players';
+import { Card } from '@/common/types';
 import { useModal } from '@/modules/modal';
 
 import PlayerSelection from '../components/PlayerSelection';
 
-const PickWhoDrinks = () => {
+const PickWhoDrinks = ({ card }: { card: Card }) => {
   const { addDrinkedTimes } = usePlayers();
   const { closeModal } = useModal();
 
@@ -19,21 +20,23 @@ const PickWhoDrinks = () => {
   };
 
   return (
-    <div>
-      <h1 className="mb-2 text-lg">Pick who drinks</h1>
+    <>
+      <h1 className="text-lg">Karta!</h1>
+      <p className="mt-2 text-sm text-zinc-400">{card.name}</p>
+      <p className="mt-2 text-sm">Check who drinks</p>
       <PlayerSelection
         selected={[selectedPlayer]}
         single
         handleSelect={(selected) => setSelectedPlayer(selected[0])}
       />
       <button
-        className="button mt-2 w-full"
+        className="button w-full"
         onClick={handleConfirm}
         disabled={selectedPlayer === -1}
       >
         Confirm
       </button>
-    </div>
+    </>
   );
 };
 

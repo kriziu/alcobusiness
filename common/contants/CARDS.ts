@@ -34,7 +34,7 @@ export const CARDS: Card[] = [
 
   {
     name: 'Robisz 10 pompek i pijesz 1x albo ich nie robisz i pijesz 2x.',
-    type: CardType.CHALLENGE, // TODO: implement this
+    type: CardType.CHALLENGE,
   },
 
   {
@@ -102,13 +102,7 @@ export const CARDS: Card[] = [
     value: 50,
   },
 
-  {
-    name: 'Najbogatsza osoba płaci $100 najbiedniejszej i pije jej zdrowie.',
-    type: CardType.PAY_AND_DRINK_RICHEST, // TODO: implement this
-    value: 100,
-  },
-
-  { name: 'Dostajesz $200.', type: CardType.GET, value: 200 },
+  { name: 'Dostajesz $100.', type: CardType.GET, value: 100 },
 
   {
     name: 'Dostajesz $100 od każdego, chyba że ten wypije 1x.',

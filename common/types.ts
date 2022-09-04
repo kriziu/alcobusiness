@@ -38,7 +38,6 @@ export enum CardType {
   CHALLENGE,
   PAY,
   PAY_WHO_DRINKS,
-  PAY_AND_DRINK_RICHEST,
   GET,
   GET_FROM_ALL,
   GET_FROM_DRINK,
