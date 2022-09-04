@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { useModal } from '@/modules/modal';
 
 import DrinkMoney from '../modals/DrinkMoney';

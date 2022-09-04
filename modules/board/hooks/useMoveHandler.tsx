@@ -36,7 +36,7 @@ export const useMoveHandler = (
         });
 
       if (place.type === PlaceType.CARD) {
-        const randomCard = Math.floor(Math.random() * CARDS.length);
+        const randomCard = 18 || Math.floor(Math.random() * CARDS.length);
         const card = CARDS[randomCard];
         openModal(<CardModal card={card} />, {
           closeCallback: card.type === CardType.MOVE ? undefined : callback,

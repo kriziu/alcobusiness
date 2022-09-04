@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { useEffect } from 'react';
 
 import { usePlayers } from '@/common/recoil/players';
@@ -14,7 +15,7 @@ const DrinkMoney = ({
   callback: () => void;
   oldCloseCallback?: () => void;
 }) => {
-  const { closeModal, setModal } = useModal();
+  const { setModal } = useModal();
 
   const { getPlayer, addMoneyToPlayer, bankruptPlayer, addDrinkedTimes } =
     usePlayers();
@@ -26,7 +27,6 @@ const DrinkMoney = ({
     addMoneyToPlayer(playerIndex, toDrink * 100);
     addDrinkedTimes(playerIndex, toDrink);
 
-    closeModal();
     callback();
   };
 

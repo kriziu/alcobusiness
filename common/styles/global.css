@@ -20,7 +20,7 @@
   }
 
   .button {
-    @apply gradient rounded-lg px-2 py-[.5rem] font-bold transition-transform hover:scale-105 active:scale-100;
+    @apply gradient rounded-lg px-2 py-[.5rem] font-bold transition-transform hover:scale-105 active:scale-100 disabled:cursor-not-allowed disabled:opacity-30;
   }
 
   .button-secondary {

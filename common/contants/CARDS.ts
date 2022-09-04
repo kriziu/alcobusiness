@@ -29,7 +29,7 @@ export const CARDS: Card[] = [
 
   {
     name: 'Każesz jakiejś osobie wypić 1x.',
-    type: CardType.PICK_WHO_DRINKS, // TODO: implement this
+    type: CardType.PICK_WHO_DRINKS,
   },
 
   {

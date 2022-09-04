@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
-
 import { PLACES } from '@/common/contants/PLACES';
 import { usePlayers } from '@/common/recoil/players';
 import { Place, PlaceType } from '@/common/types';
 import { getPlaceIndex } from '@/common/utils/place';
-import { useDrinkMoney } from '@/modules/drinkmoney';
 import { useModal } from '@/modules/modal';
 
 import { placeOwnedBy } from '../utils/placeOwnedBy';
@@ -13,7 +10,6 @@ const PlaceModal = (place: Place) => {
   const {
     players,
     currentPlayer,
-    getCurrentPlayer,
     buyPlaceByPlayer,
     addMoneyToPlayer,
     getPlayer,
@@ -21,8 +17,7 @@ const PlaceModal = (place: Place) => {
     bankruptPlayer,
     drinkPlayers,
   } = usePlayers();
-  const { closeModal, modalSettings, setModal } = useModal();
-  const { drinkMoneyPlayer } = useDrinkMoney();
+  const { closeModal } = useModal();
 
   const ownedBy = placeOwnedBy(place, players);
 
@@ -34,48 +29,42 @@ const PlaceModal = (place: Place) => {
       0
     );
 
-  useEffect(() => {
-    if (!place.price) return;
-
-    if (getCurrentPlayer().money < place.price)
-      drinkMoneyPlayer(currentPlayer, place.price, () =>
-        setModal(modalSettings)
-      );
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handlePay = () => {
-    payToPlayer(currentPlayer, ownedBy, 50 * specialPropertyCount);
-    closeModal();
+    payToPlayer(
+      {
+        payerIndex: currentPlayer,
+        receiverIndex: ownedBy,
+        amount: 50 * specialPropertyCount,
+      },
+      closeModal
+    );
   };
 
   const handleObtainMoney = () => {
+    closeModal();
+
     if (place.type === PlaceType.SPECIAL_PROPERTY)
       addMoneyToPlayer(currentPlayer, 50 * specialPropertyCount);
     else addMoneyToPlayer(currentPlayer, place.price || 0);
-
-    closeModal();
   };
 
   const handleBuy = () => {
-    if (!place.price || getCurrentPlayer().money < place.price) return;
-
-    buyPlaceByPlayer(currentPlayer, getPlaceIndex(place));
-
-    closeModal();
+    buyPlaceByPlayer(
+      { playerIndex: currentPlayer, placeId: getPlaceIndex(place) },
+      closeModal
+    );
   };
 
   const handleBankrupt = () => {
-    bankruptPlayer(currentPlayer);
-
     closeModal();
+
+    bankruptPlayer(currentPlayer);
   };
 
   const handleDrink = () => {
-    drinkPlayers([currentPlayer]);
-
     closeModal();
+
+    drinkPlayers([currentPlayer]);
   };
 
   return (

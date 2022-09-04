@@ -7,7 +7,56 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
   key: 'players',
   default: {
     currentPlayer: 0,
-    players: [],
+    players: [
+      {
+        layoutId: '0',
+        name: '1',
+        position: {
+          x: 0,
+          y: 0,
+        },
+        money: 50,
+        placesIds: [],
+        hasLeavePrisonCard: false,
+        roundsNotDrinking: 0,
+        isBankrupt: false,
+        noDrinkTimes: 0,
+        prisonRounds: 0,
+        drinkedTimes: 0,
+      },
+      {
+        layoutId: '1',
+        name: '2',
+        position: {
+          x: 0,
+          y: 0,
+        },
+        money: 50,
+        placesIds: [],
+        hasLeavePrisonCard: false,
+        roundsNotDrinking: 0,
+        isBankrupt: false,
+        noDrinkTimes: 0,
+        prisonRounds: 0,
+        drinkedTimes: 0,
+      },
+      {
+        layoutId: '2',
+        name: '3',
+        position: {
+          x: 0,
+          y: 0,
+        },
+        money: 50,
+        placesIds: [],
+        hasLeavePrisonCard: false,
+        roundsNotDrinking: 0,
+        isBankrupt: false,
+        noDrinkTimes: 0,
+        prisonRounds: 0,
+        drinkedTimes: 0,
+      },
+    ],
   },
   effects: [
     ({ onSet, setSelf }) => {
