@@ -22,7 +22,7 @@ export const usePlayers = () => {
         x: 0,
         y: 0,
       },
-      money: 100,
+      money: 250,
       placesIds: [],
       hasLeavePrisonCard: false,
       roundsNotDrinking: 0,
