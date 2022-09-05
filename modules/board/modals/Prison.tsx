@@ -4,7 +4,7 @@ import { usePlayers } from '@/common/recoil/players';
 import { useModal } from '@/modules/modal';
 
 const Prison = () => {
-  const { editPlayerPrisonRounds, currentPlayer } = usePlayers();
+  const { editPlayerPrisonRounds, currentPlayer, nextPlayer } = usePlayers();
   const { closeModal } = useModal();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -16,7 +16,13 @@ const Prison = () => {
       <p className="mt-2 text-sm text-zinc-400">
         Siedzisz przez 1 kolejną rundę (picie cię omija).
       </p>
-      <button className="button mt-4 w-full" onClick={closeModal}>
+      <button
+        className="button mt-4 w-full"
+        onClick={() => {
+          closeModal();
+          nextPlayer();
+        }}
+      >
         młyn
       </button>
     </>

@@ -67,14 +67,11 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
         let newPlayers = players;
 
         const incrementToNextPlayer = (index: number): number => {
-          if (
-            newPlayers[index].isBankrupt ||
-            newPlayers[index].prisonRounds > 0
-          ) {
-            if (newPlayers[index].prisonRounds > 0)
+          if (newPlayers[index].isBankrupt || newPlayers[index].prisonRounds) {
+            if (newPlayers[index].prisonRounds)
               newPlayers = newPlayers.map((player, playerIndex) => {
                 if (playerIndex === index)
-                  return { ...player, prisonRounds: player.prisonRounds - 1 };
+                  return { ...player, prisonRounds: 0 };
 
                 return player;
               });
@@ -85,23 +82,14 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           return index;
         };
 
-        if (players[currentPlayer].prisonRounds === 3) {
-          setSelf({
-            players: newPlayers.map((player, index) => {
-              if (index === currentPlayer)
-                return { ...player, prisonRounds: 2 };
-
-              return player;
-            }),
-            currentPlayer,
+        if (players[currentPlayer].prisonRounds === 2)
+          newPlayers = newPlayers.map((player, index) => {
+            if (index === currentPlayer) return { ...player, prisonRounds: 1 };
+            return player;
           });
-
-          return;
-        }
-
-        if (
+        else if (
           players[currentPlayer].isBankrupt ||
-          players[currentPlayer].prisonRounds > 0
+          players[currentPlayer].prisonRounds
         )
           newIndex = incrementToNextPlayer(currentPlayer);
 
