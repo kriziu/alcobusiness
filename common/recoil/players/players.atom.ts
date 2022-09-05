@@ -31,7 +31,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
           x: 0,
           y: 0,
         },
-        money: 50,
+        money: 150,
         placesIds: [],
         hasLeavePrisonCard: false,
         roundsNotDrinking: 0,

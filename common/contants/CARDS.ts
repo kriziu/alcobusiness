@@ -98,7 +98,7 @@ export const CARDS: Card[] = [
 
   {
     name: 'Płacisz każdemu po $50, który wypije twoje zdrowie.',
-    type: CardType.PAY_WHO_DRINKS, // TODO: implement this
+    type: CardType.PAY_WHO_DRINKS,
     value: 50,
   },
 
@@ -106,13 +106,13 @@ export const CARDS: Card[] = [
 
   {
     name: 'Dostajesz $100 od każdego, chyba że ten wypije 1x.',
-    type: CardType.GET_FROM_ALL, // TODO: implement this
+    type: CardType.GET_FROM_ALL,
     value: 100,
   },
 
   {
     name: 'Za każdego wypitego dostajesz po $100 od banku.',
-    type: CardType.GET_FROM_DRINK, // TODO: implement this
+    type: CardType.GET_FROM_DRINK,
     value: 100,
   },
 ];

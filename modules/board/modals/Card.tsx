@@ -3,7 +3,12 @@ import { useEffect } from 'react';
 import { usePlayers } from '@/common/recoil/players';
 import { Card, CardType } from '@/common/types';
 import { convertIndexToPosition } from '@/common/utils/position';
-import { PayForDrink, PickWhoDrinks } from '@/modules/cards';
+import {
+  GetFromAll,
+  HowManyDrink,
+  PayForDrink,
+  PickWhoDrinks,
+} from '@/modules/cards';
 import { useModal } from '@/modules/modal';
 
 const CardModal = ({ card }: { card: Card }) => {
@@ -29,6 +34,18 @@ const CardModal = ({ card }: { card: Card }) => {
 
       case CardType.PAY_WHO_DRINKS:
         openModal(<PayForDrink card={card} />, {
+          closeCallback: modalSettings.closeCallback,
+        });
+        break;
+
+      case CardType.GET_FROM_ALL:
+        openModal(<GetFromAll card={card} />, {
+          closeCallback: modalSettings.closeCallback,
+        });
+        break;
+
+      case CardType.GET_FROM_DRINK:
+        openModal(<HowManyDrink card={card} />, {
           closeCallback: modalSettings.closeCallback,
         });
         break;

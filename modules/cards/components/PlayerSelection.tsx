@@ -4,14 +4,18 @@ const PlayerSelection = ({
   selected,
   single = false,
   handleSelect,
+  disabled,
 }: {
   selected: number[];
   single?: boolean;
   handleSelect: (selected: number[]) => void;
+  disabled?: number[];
 }) => {
   const { players, currentPlayer } = usePlayers();
 
   const handleClick = (index: number) => {
+    if (currentPlayer === index || disabled?.includes(index)) return;
+
     if (single) handleSelect([index]);
     else if (selected.includes(index))
       handleSelect(selected.filter((num) => num !== index));
@@ -25,7 +29,7 @@ const PlayerSelection = ({
           key={index}
           className="flex items-center gap-2 rounded-lg p-1 transition-transform hover:scale-105 focus:scale-105 active:scale-100 disabled:opacity-20"
           onClick={() => handleClick(index)}
-          disabled={currentPlayer === index}
+          disabled={currentPlayer === index || disabled?.includes(index)}
         >
           <div className="flex h-6 w-6 items-center justify-center rounded-full border border-zinc-500">
             <div
