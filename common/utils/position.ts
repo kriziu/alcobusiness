@@ -19,6 +19,7 @@ export const convertIndexToPosition = (index: number) => {
 
 export const convertPositionToIndex = (position: { x: number; y: number }) => {
   const { x, y } = position;
+
   if (x === 0 && y === 0) return 0;
   if (x === 0) {
     return 32 - y;
@@ -31,6 +32,24 @@ export const convertPositionToIndex = (position: { x: number; y: number }) => {
   }
   if (y === 8) {
     return 24 - x;
+  }
+
+  throw new Error('Invalid position');
+};
+
+export const convertMobilePosition = (position: { x: number; y: number }) => {
+  const { x, y } = position;
+
+  if (x === 0) {
+    if (y < 8) return { y: 0, x: y };
+
+    return { x: 8, y: y - 8 };
+  }
+
+  if (x === 1) {
+    if (y < 8) return { x: 0, y: y + 1 };
+
+    return { y: 8, x: Math.abs(16 - y - 9) };
   }
 
   throw new Error('Invalid position');

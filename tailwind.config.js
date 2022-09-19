@@ -5,9 +5,6 @@ module.exports = {
     './modules/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    screens: {
-      '2xl': '1400px',
-    },
     fontSize: {
       xs: '0.75rem',
       sm: '0.875rem',
@@ -25,6 +22,9 @@ module.exports = {
       colors: {},
       width: {
         160: '40rem',
+      },
+      screens: {
+        '2xl': '1400px',
       },
     },
     fontFamily: {

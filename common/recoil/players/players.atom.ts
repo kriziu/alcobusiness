@@ -10,7 +10,7 @@ export const playersAtom = atom<{ players: Player[]; currentPlayer: number }>({
     players: [
       {
         layoutId: '0',
-        name: '1',
+        name: 'tomaczi',
         position: {
           x: 0,
           y: 0,

@@ -4,6 +4,20 @@
 
 * {
   @apply font-montserrat font-semibold leading-none text-white focus:outline-none focus:ring focus:ring-orange-500;
+
+  scrollbar-width: thin; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+*::-webkit-scrollbar {
+  width: 6px !important;
+  position: absolute;
+  background-color: transparent;
 }
 
 @layer components {

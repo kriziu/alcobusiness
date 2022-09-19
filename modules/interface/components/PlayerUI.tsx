@@ -38,7 +38,7 @@ const PlayerUI = ({
   const index = convertPositionToIndex(position);
 
   return (
-    <div className="relative h-max w-2/3 rounded-xl bg-zinc-800/80 py-3 px-9 text-sm">
+    <div className="relative h-max w-2/3 rounded-xl bg-zinc-800/80 p-3 text-sm xl:px-9">
       {isCurrentPlayer && (
         <div className="pointer-events-none absolute top-0 left-0 flex h-full w-full items-center">
           <motion.div
@@ -57,7 +57,7 @@ const PlayerUI = ({
         </div>
 
         <button
-          className="button-secondary"
+          className="button-secondary text-xs xl:text-base"
           onClick={() => bankruptPlayer(playerIndex)}
         >
           Bankrupt

@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
+import { motion } from 'framer-motion';
+
+import { useMobileMode } from '@/common/recoil/mobileMode';
 import { usePlayers } from '@/common/recoil/players';
+import { convertMobilePosition } from '@/common/utils/position';
 
 import { useCalculatePosition } from '../hooks/useCalculatePosition';
 import { useMoveHandler } from '../hooks/useMoveHandler';
@@ -8,10 +12,15 @@ import Dice from './Dice';
 import Tile from './Tile';
 
 const Board = () => {
-  const { nextPlayer } = usePlayers();
+  const { mobileMode } = useMobileMode();
+  const { nextPlayer, currentPlayer, getCurrentPlayer } = usePlayers();
 
   const [dice, setDice] = useState(0);
   const [doubleDice, setDoubleDice] = useState(false);
+  const [animateTop, setAnimateTop] = useState(0);
+
+  const tiles = useRef<Map<string, HTMLDivElement>>(new Map());
+  const container = useRef<HTMLDivElement>(null);
 
   useCalculatePosition(dice);
 
@@ -27,6 +36,69 @@ const Board = () => {
       setDoubleDice(false);
     },
   });
+
+  const player = getCurrentPlayer();
+
+  useEffect(() => {
+    const { position } = player;
+
+    tiles.current.forEach((ref, positionString) => {
+      const { x, y } = convertMobilePosition({
+        x: parseInt(positionString[0], 10),
+        y: parseInt(positionString.substring(1), 10),
+      });
+
+      if (x === position.x && y === position.y)
+        setAnimateTop(Math.min(-ref.offsetTop + window.innerHeight / 3, 0));
+    });
+  }, [player, currentPlayer]);
+
+  if (mobileMode) {
+    return (
+      <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:justify-center">
+        <div className="hidden w-1/3 justify-end lg:flex">
+          <Dice setDice={setDice} dice={dice} setDoubleDice={setDoubleDice} />
+        </div>
+        <div className="block lg:hidden">
+          <Dice setDice={setDice} dice={dice} setDoubleDice={setDoubleDice} />
+        </div>
+        <div className="relative flex h-[70vh] w-full justify-center overflow-y-hidden lg:h-[80vh] lg:w-auto lg:flex-1">
+          <motion.div
+            className="absolute flex gap-16"
+            animate={{ top: animateTop }}
+            transition={{ duration: 0.7 }}
+            ref={container}
+          >
+            <div>
+              {Array.from({ length: 16 }).map((_, y) => {
+                return (
+                  <Tile
+                    x={0}
+                    y={y}
+                    key={`0${y}`}
+                    ref={(ref) => ref && tiles.current.set(`0${y}`, ref)}
+                  />
+                );
+              })}
+            </div>
+
+            <div>
+              {Array.from({ length: 16 }).map((_, y) => {
+                return (
+                  <Tile
+                    x={1}
+                    y={y}
+                    key={`1${y}`}
+                    ref={(ref) => ref && tiles.current.set(`1${y}`, ref)}
+                  />
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex w-min flex-col-reverse justify-between gap-1">

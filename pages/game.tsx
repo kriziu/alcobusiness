@@ -18,11 +18,11 @@ const GamePage: NextPage = () => {
 
   return (
     <div className="flex h-full w-full">
-      <div className="flex flex-1 items-center justify-center overflow-hidden pl-24">
+      <div className="flex flex-1 items-end justify-center overflow-hidden pb-10 md:items-center md:pb-0 2xl:pl-24">
         <Board />
       </div>
 
-      <div className="w-1/3">
+      <div className="hidden w-1/2 md:block lg:w-2/5 xl:w-1/3">
         <PlayerList />
       </div>
     </div>

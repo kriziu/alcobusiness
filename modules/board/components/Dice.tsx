@@ -10,6 +10,8 @@ import {
 } from 'react-icons/bs';
 import { IoDice } from 'react-icons/io5';
 
+import { useMobileMode } from '@/common/recoil/mobileMode';
+
 const Dice = ({
   dice,
   setDice,
@@ -19,6 +21,8 @@ const Dice = ({
   setDice: Dispatch<SetStateAction<number>>;
   setDoubleDice: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const { mobileMode } = useMobileMode();
+
   const [tempDice, setTempDice] = useState(0);
   const [tempDice2, setTempDice2] = useState(0);
 
@@ -82,9 +86,12 @@ const Dice = ({
 
   return (
     <button
-      className={`button absolute top-1/2 left-1/2 flex h-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center ${
-        !tempDice ? 'gap-2' : 'gap-10'
-      }`}
+      className={`button flex h-24  items-center justify-center
+      ${
+        !mobileMode &&
+        'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+      }
+      ${!tempDice ? 'gap-2' : 'gap-10'}`}
       onClick={handleRollDice}
       style={{ fontSize: !tempDice ? '4rem' : '3rem' }}
     >
