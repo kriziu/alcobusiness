@@ -86,7 +86,8 @@ const Dice = ({
 
   return (
     <button
-      className={`button flex h-24  items-center justify-center
+      className={`button flex h-24 items-center justify-center
+      ${mobileMode && 'mt-16'}
       ${
         !mobileMode &&
         'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'

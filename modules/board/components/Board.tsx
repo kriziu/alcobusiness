@@ -55,14 +55,14 @@ const Board = () => {
 
   if (mobileMode) {
     return (
-      <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:justify-center">
+      <div className="flex h-full w-full flex-col items-center gap-10 lg:flex-row lg:justify-center">
         <div className="hidden w-1/3 justify-end lg:flex">
           <Dice setDice={setDice} dice={dice} setDoubleDice={setDoubleDice} />
         </div>
         <div className="block lg:hidden">
           <Dice setDice={setDice} dice={dice} setDoubleDice={setDoubleDice} />
         </div>
-        <div className="relative flex h-[70vh] w-full justify-center overflow-y-hidden lg:h-[80vh] lg:w-auto lg:flex-1">
+        <div className="relative flex h-full w-full flex-1 justify-center overflow-y-hidden lg:h-4/5 lg:w-auto">
           <motion.div
             className="absolute flex gap-16"
             animate={{ top: animateTop }}
