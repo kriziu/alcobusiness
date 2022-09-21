@@ -75,15 +75,6 @@ const Dice = ({
     }
   };
 
-  const rollDice = (value: number) => {
-    setDice(value);
-  };
-
-  useEffect(() => {
-    // @ts-ignore TODO: REMOVE THIS
-    window.rollDice = rollDice;
-  }, []);
-
   return (
     <button
       className={`button flex h-24 items-center justify-center
