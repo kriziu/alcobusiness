@@ -8,6 +8,7 @@ import { useMobileMode } from '@/common/recoil/mobileMode';
 import { usePlayers } from '@/common/recoil/players';
 import Board from '@/modules/board';
 import PlayerList from '@/modules/interface';
+import CurrentPlayer from '@/modules/interface/components/CurrentPlayer';
 
 const GamePage: NextPage = () => {
   const { players } = usePlayers();
@@ -46,6 +47,9 @@ const GamePage: NextPage = () => {
       </div>
 
       <MobileModeSwitcher />
+      <div className="block md:hidden">
+        <CurrentPlayer />
+      </div>
     </div>
   );
 };

@@ -38,7 +38,7 @@ const PlayerUI = ({
   const index = convertPositionToIndex(position);
 
   return (
-    <div className="relative h-max w-2/3 rounded-xl bg-zinc-800/80 p-3 text-sm xl:px-9">
+    <div className="relative h-max w-2/3 rounded-xl bg-zinc-800/80 p-3 text-sm">
       {isCurrentPlayer && (
         <div className="pointer-events-none absolute top-0 left-0 flex h-full w-full items-center">
           <motion.div
@@ -50,7 +50,7 @@ const PlayerUI = ({
       )}
 
       <div className="flex items-center justify-between font-bold">
-        <div className="flex items-center gap-3 text-lg">
+        <div className="flex items-center gap-1 text-lg lg:gap-3">
           <p>{name}</p>
           <p className="text-green-400">${money}</p>
           <p className="text-xs text-yellow-300">{PLACES[index]?.name}</p>

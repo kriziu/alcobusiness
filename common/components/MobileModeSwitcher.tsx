@@ -4,7 +4,7 @@ const MobileModeSwitcher = () => {
   const { setMobileMode, mobileMode } = useMobileMode();
 
   return (
-    <div className="absolute bottom-3 right-3 flex gap-3">
+    <div className="absolute bottom-2 right-2 flex gap-3">
       <label
         htmlFor="auto-toggle"
         className="relative inline-flex cursor-pointer items-center"
