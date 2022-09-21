@@ -1,8 +1,11 @@
 import { atom, useRecoilState } from 'recoil';
 
-export const mobileModeAtom = atom<boolean>({
+export const mobileModeAtom = atom({
   key: 'mobileMode',
-  default: true,
+  default: {
+    turned: false,
+    auto: true,
+  },
 });
 
 export const useMobileMode = () => {

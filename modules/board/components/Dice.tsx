@@ -87,9 +87,9 @@ const Dice = ({
   return (
     <button
       className={`button flex h-24 items-center justify-center
-      ${mobileMode && 'mt-16'}
+      ${mobileMode.turned && 'mt-16'}
       ${
-        !mobileMode &&
+        !mobileMode.turned &&
         'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
       }
       ${!tempDice ? 'gap-2' : 'gap-10'}`}

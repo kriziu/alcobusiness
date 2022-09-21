@@ -17,7 +17,7 @@ const Tile = forwardRef<HTMLDivElement, { x: number; y: number }>(
     const { players, getCurrentPlayer } = usePlayers();
 
     let goodPosition = position;
-    if (mobileMode) goodPosition = convertMobilePosition(position);
+    if (mobileMode.turned) goodPosition = convertMobilePosition(position);
 
     const { x, y } = goodPosition;
 
@@ -26,7 +26,7 @@ const Tile = forwardRef<HTMLDivElement, { x: number; y: number }>(
     let bottomSide = y === 0;
     let topSide = y === 8;
 
-    if (mobileMode) {
+    if (mobileMode.turned) {
       bottomSide = false;
       topSide = false;
 
@@ -106,7 +106,7 @@ const Tile = forwardRef<HTMLDivElement, { x: number; y: number }>(
                 rotate: leftSide ? 180 : 0,
               }}
               className="absolute"
-              transition={{ duration: mobileMode ? 0 : 0.7 }}
+              transition={{ duration: mobileMode.turned ? 0 : 0.7 }}
             >
               <motion.p
                 className={`${isCurrentPlayer && 'font-bold text-green-500'}`}

@@ -53,7 +53,7 @@ const Board = () => {
     });
   }, [player, currentPlayer]);
 
-  if (mobileMode) {
+  if (mobileMode.turned) {
     return (
       <div className="flex h-full w-full flex-col items-center gap-10 lg:flex-row lg:justify-center">
         <div className="hidden w-1/3 justify-end lg:flex">
