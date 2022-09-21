@@ -26,7 +26,7 @@ const PlayerUI = ({
 
   if (isBankrupt) {
     return (
-      <div className="h-max w-2/3 rounded-xl bg-zinc-800/80 py-5 px-9 text-sm">
+      <div className="h-max w-5/6 rounded-xl bg-zinc-800/80 py-5 px-9 text-sm lg:w-4/5 2xl:w-2/3">
         <div className="flex gap-3 text-lg text-red-500 line-through">
           <p className="text-red-500">{name}</p>
           <p className="text-red-500">$0</p>
@@ -38,11 +38,11 @@ const PlayerUI = ({
   const index = convertPositionToIndex(position);
 
   return (
-    <div className="relative h-max w-2/3 rounded-xl bg-zinc-800/80 p-3 text-sm">
+    <div className="relative h-max w-5/6 rounded-xl bg-zinc-800/80 p-3 text-sm lg:w-4/5 2xl:w-2/3">
       {isCurrentPlayer && (
         <div className="pointer-events-none absolute top-0 left-0 flex h-full w-full items-center">
           <motion.div
-            className="absolute right-full mr-2 h-7 w-7 rounded-full bg-green-500"
+            className="absolute right-full mr-2 h-4 w-4 rounded-full bg-green-500 lg:h-7 lg:w-7"
             layout
             layoutId="current-player-dot"
           ></motion.div>

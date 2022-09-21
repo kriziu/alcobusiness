@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
+import { BsPeopleFill } from 'react-icons/bs';
 
 import { useMobileMode } from '@/common/recoil/mobileMode';
 import { usePlayers } from '@/common/recoil/players';
+import { useShowPlayerList } from '@/common/recoil/showPlayerList';
 import { convertMobilePosition } from '@/common/utils/position';
 
 import { useCalculatePosition } from '../hooks/useCalculatePosition';
@@ -14,6 +16,7 @@ import Tile from './Tile';
 const Board = () => {
   const { mobileMode } = useMobileMode();
   const { nextPlayer, currentPlayer, getCurrentPlayer } = usePlayers();
+  const { setShowPlayerList } = useShowPlayerList();
 
   const [dice, setDice] = useState(0);
   const [doubleDice, setDoubleDice] = useState(false);
@@ -59,8 +62,14 @@ const Board = () => {
         <div className="hidden w-1/3 justify-end lg:flex">
           <Dice setDice={setDice} dice={dice} setDoubleDice={setDoubleDice} />
         </div>
-        <div className="block lg:hidden">
+        <div className="mt-16 flex items-center gap-4 lg:hidden">
           <Dice setDice={setDice} dice={dice} setDoubleDice={setDoubleDice} />
+          <button
+            className="button flex items-center gap-2 py-3 md:hidden"
+            onClick={() => setShowPlayerList(true)}
+          >
+            <BsPeopleFill /> Players
+          </button>
         </div>
         <div className="relative flex h-full w-full flex-1 justify-center overflow-y-hidden lg:h-4/5 lg:w-auto">
           <motion.div

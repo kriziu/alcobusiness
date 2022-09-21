@@ -9,7 +9,7 @@ const CurrentPlayer = () => {
   const index = convertPositionToIndex(position);
 
   return (
-    <div className="absolute top-3 left-0 flex w-screen items-center justify-around gap-1 px-1 sm:justify-center sm:gap-4 ">
+    <div className="absolute top-3 left-0 flex w-screen items-center justify-around gap-1 px-1 sm:justify-center sm:gap-10 ">
       <p className="text-green-400">${money}</p>
       <p className="text-xs text-yellow-300">{PLACES[index]?.name}</p>
 

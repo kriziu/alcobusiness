@@ -6,13 +6,16 @@ import { useRouter } from 'next/router';
 import MobileModeSwitcher from '@/common/components/MobileModeSwitcher';
 import { useMobileMode } from '@/common/recoil/mobileMode';
 import { usePlayers } from '@/common/recoil/players';
+import { useShowPlayerList } from '@/common/recoil/showPlayerList';
 import Board from '@/modules/board';
 import PlayerList from '@/modules/interface';
 import CurrentPlayer from '@/modules/interface/components/CurrentPlayer';
+import MobilePlayerList from '@/modules/interface/components/MobilePlayerList';
 
 const GamePage: NextPage = () => {
   const { players } = usePlayers();
   const { setMobileMode, mobileMode } = useMobileMode();
+  const { setShowPlayerList } = useShowPlayerList();
 
   const router = useRouter();
 
@@ -22,6 +25,8 @@ const GamePage: NextPage = () => {
 
   useEffect(() => {
     const handleResize = () => {
+      if (window.innerWidth > 768) setShowPlayerList(false);
+
       if (mobileMode.auto) {
         if (window.innerWidth < 1400)
           setMobileMode({ auto: true, turned: true });
@@ -34,7 +39,7 @@ const GamePage: NextPage = () => {
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
-  }, [mobileMode.auto, setMobileMode]);
+  }, [mobileMode.auto, setMobileMode, setShowPlayerList]);
 
   return (
     <div className="flex h-full w-full">
@@ -49,6 +54,7 @@ const GamePage: NextPage = () => {
       <MobileModeSwitcher />
       <div className="block md:hidden">
         <CurrentPlayer />
+        <MobilePlayerList />
       </div>
     </div>
   );
