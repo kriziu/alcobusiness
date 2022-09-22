@@ -4,6 +4,9 @@ import { PLACES } from '@/common/contants/PLACES';
 import { usePlayers } from '@/common/recoil/players';
 import type { Player } from '@/common/types';
 import { convertPositionToIndex } from '@/common/utils/position';
+import { useModal } from '@/modules/modal';
+
+import BankruptModal from '../modals/bankruptModal';
 
 interface Props extends Player {
   isCurrentPlayer: boolean;
@@ -23,6 +26,7 @@ const PlayerUI = ({
   noDrinkTimes,
 }: Props) => {
   const { bankruptPlayer } = usePlayers();
+  const { openModal } = useModal();
 
   if (isBankrupt) {
     return (
@@ -58,7 +62,12 @@ const PlayerUI = ({
 
         <button
           className="button-secondary text-xs xl:text-base"
-          onClick={() => bankruptPlayer(playerIndex)}
+          onClick={() =>
+            openModal(
+              <BankruptModal bankrupt={() => bankruptPlayer(playerIndex)} />,
+              { clickToClose: true }
+            )
+          }
         >
           Bankrupt
         </button>
