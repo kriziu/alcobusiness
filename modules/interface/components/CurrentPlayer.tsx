@@ -1,10 +1,14 @@
+import { BsPeopleFill } from 'react-icons/bs';
+
 import { PLACES } from '@/common/contants/PLACES';
 import { usePlayers } from '@/common/recoil/players';
+import { useShowPlayerList } from '@/common/recoil/showPlayerList';
 import { convertPositionToIndex } from '@/common/utils/position';
 
 const CurrentPlayer = () => {
-  const { bankruptPlayer, getCurrentPlayer, currentPlayer } = usePlayers();
+  const { getCurrentPlayer } = usePlayers();
   const { position, money, drinkedTimes, noDrinkTimes } = getCurrentPlayer();
+  const { setShowPlayerList } = useShowPlayerList();
 
   const index = convertPositionToIndex(position);
 
@@ -24,10 +28,10 @@ const CurrentPlayer = () => {
       )}
 
       <button
-        className="button-secondary text-xs xl:text-base"
-        onClick={() => bankruptPlayer(currentPlayer)}
+        className="button flex items-center gap-2 md:hidden"
+        onClick={() => setShowPlayerList(true)}
       >
-        Bankrupt
+        <BsPeopleFill /> Players
       </button>
     </div>
   );
