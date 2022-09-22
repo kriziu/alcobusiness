@@ -52,6 +52,7 @@ const GamePage: NextPage = () => {
       </div>
 
       <MobileModeSwitcher />
+
       <div className="block md:hidden">
         <CurrentPlayer />
         <MobilePlayerList />
