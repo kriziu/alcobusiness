@@ -42,6 +42,8 @@ const GamePage: NextPage = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [mobileMode.auto, setMobileMode, setShowPlayerList]);
 
+  if (!players.length) return null;
+
   return (
     <div className="flex h-full w-full">
       <CheckWin />
