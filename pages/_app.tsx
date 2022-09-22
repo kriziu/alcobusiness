@@ -8,7 +8,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Template</title>
+        <title>ALCOBUSINESS - Drink & Win</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainLayout>
