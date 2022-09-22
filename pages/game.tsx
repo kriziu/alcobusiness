@@ -8,6 +8,7 @@ import { useMobileMode } from '@/common/recoil/mobileMode';
 import { usePlayers } from '@/common/recoil/players';
 import { useShowPlayerList } from '@/common/recoil/showPlayerList';
 import Board from '@/modules/board';
+import CheckWin from '@/modules/checkWin';
 import PlayerList from '@/modules/interface';
 import CurrentPlayer from '@/modules/interface/components/CurrentPlayer';
 import MobilePlayerList from '@/modules/interface/components/MobilePlayerList';
@@ -43,6 +44,8 @@ const GamePage: NextPage = () => {
 
   return (
     <div className="flex h-full w-full">
+      <CheckWin />
+
       <div className="flex flex-1 items-end justify-center overflow-hidden pb-10 md:items-center lg:pb-0 2xl:pl-24">
         <Board />
       </div>

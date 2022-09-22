@@ -6,7 +6,7 @@ import type { Player } from '@/common/types';
 import { convertPositionToIndex } from '@/common/utils/position';
 import { useModal } from '@/modules/modal';
 
-import BankruptModal from '../modals/bankruptModal';
+import BankruptModal from '../modals/BankruptModal';
 
 interface Props extends Player {
   isCurrentPlayer: boolean;
