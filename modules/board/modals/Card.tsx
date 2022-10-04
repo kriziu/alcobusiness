@@ -121,8 +121,8 @@ const CardModal = ({ card }: { card: Card }) => {
 
   return (
     <>
-      <h1 className="text-lg">Karta!</h1>
-      <p className="mt-2 text-sm text-zinc-400">{card.name}</p>
+      <h1 className="text-lg">Card!</h1>
+      <p className="mt-2 text-center text-sm text-zinc-400">{card.name}</p>
 
       {card.type === CardType.CHALLENGE && (
         <div className="flex w-full gap-3">
@@ -130,20 +130,20 @@ const CardModal = ({ card }: { card: Card }) => {
             className="button mt-4 w-full"
             onClick={() => handleChallenge(true)}
           >
-            Zrobione
+            Done
           </button>
           <button
             className="button-secondary mt-4 w-full"
             onClick={() => handleChallenge(false)}
           >
-            Kara
+            Not done
           </button>
         </div>
       )}
 
       {card.type !== CardType.CHALLENGE && (
         <button className="button mt-4 w-full" onClick={handleClose}>
-          młyn
+          OK
         </button>
       )}
     </>

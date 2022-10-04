@@ -7,7 +7,7 @@ const AllDrink = () => {
 
   return (
     <>
-      <h1 className="text-lg">Wszyscy piją!</h1>
+      <h1 className="text-lg">Everyone is drinking!</h1>
       <button
         className="button mt-4 w-full"
         onClick={() => {

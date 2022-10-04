@@ -73,7 +73,7 @@ const PlaceModal = (place: Place) => {
       <div className="mt-2 text-sm text-zinc-400">
         {ownedBy === -1 && (
           <>
-            <p>Możesz kupić to miejsce</p>
+            <p>You can buy this place</p>
             <p className="mt-2 text-center text-lg text-green-400">
               ${place.price}
             </p>
@@ -82,23 +82,22 @@ const PlaceModal = (place: Place) => {
 
         {ownedBy !== -1 && ownedBy !== currentPlayer && (
           <>
-            <p>Miejsce kupione przez: {getPlayer(ownedBy).name}</p>
+            <p>Place owned by: {getPlayer(ownedBy).name}</p>
             <p className="mt-2 text-center text-base text-orange-500">
-              {place.type === PlaceType.PROPERTY && 'Pijesz 1x.'}
+              {place.type === PlaceType.PROPERTY && 'You drink 1x.'}
               {place.type === PlaceType.SPECIAL_PROPERTY &&
-                `Płacisz $${50 * specialPropertyCount}.`}
+                `You pay $${50 * specialPropertyCount}.`}
             </p>
           </>
         )}
 
         {ownedBy !== -1 && ownedBy === currentPlayer && (
           <>
-            <p>Miejsce kupione przez Ciebie</p>
+            <p>Place owned by you</p>
             <p className="mt-2 text-center text-base text-green-400">
-              {place.type === PlaceType.PROPERTY &&
-                `Otrzymujesz $${place.price}.`}
+              {place.type === PlaceType.PROPERTY && `You get $${place.price}.`}
               {place.type === PlaceType.SPECIAL_PROPERTY &&
-                `Otrzymujesz $${50 * specialPropertyCount}.`}
+                `You get $${50 * specialPropertyCount}.`}
             </p>
           </>
         )}
@@ -135,15 +134,9 @@ const PlaceModal = (place: Place) => {
         </div>
       )}
 
-      {ownedBy === currentPlayer && place.type === PlaceType.PROPERTY && (
-        <button className="button mt-4 w-full" onClick={closeModal}>
-          essa
-        </button>
-      )}
-
-      {ownedBy === currentPlayer && place.type === PlaceType.SPECIAL_PROPERTY && (
+      {ownedBy === currentPlayer && (
         <button className="button mt-4 w-full" onClick={handleObtainMoney}>
-          essa
+          Get money
         </button>
       )}
     </>

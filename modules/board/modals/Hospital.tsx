@@ -12,12 +12,12 @@ const Hospital = () => {
 
   return (
     <>
-      <h1 className="text-lg">Gdzieś to zalazł...</h1>
-      <p className="mt-2 text-sm text-zinc-400">
-        Przy 2 następnych okazjach nie pijesz (chyba, że potrzebujesz kasy).
+      <h1 className="text-lg">Where did you go...</h1>
+      <p className="mt-2 text-center text-sm text-zinc-400">
+        You will not drink on the next 2 occasions (unless you need money).
       </p>
       <button className="button mt-4 w-full" onClick={closeModal}>
-        młyn
+        OK
       </button>
     </>
   );

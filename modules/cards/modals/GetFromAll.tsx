@@ -40,9 +40,9 @@ const GetFromAll = ({ card }: { card: Card }) => {
 
   return (
     <>
-      <h1 className="text-lg">Karta!</h1>
+      <h1 className="text-lg">Card!</h1>
       <p className="mt-2 text-sm text-zinc-400">{card.name}</p>
-      <p className="mt-2 text-sm">Check who drinks</p>
+      <p className="mt-2 text-sm">Check who is drinking</p>
       <PlayerSelection
         selected={selectedPlayers}
         handleSelect={(selected) => setSelectedPlayers(selected)}

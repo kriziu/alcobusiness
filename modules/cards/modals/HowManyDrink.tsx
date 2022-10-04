@@ -19,9 +19,9 @@ const HowManyDrink = ({ card }: { card: Card }) => {
 
   return (
     <>
-      <h1 className="text-lg">Karta!</h1>
+      <h1 className="text-lg">Card!</h1>
       <p className="mt-2 text-sm text-zinc-400">{card.name}</p>
-      <p className="mt-2 text-sm">Check how many drink</p>
+      <p className="mt-2 text-sm">Check how many you drinked</p>
       <div className="m-5 flex items-center">
         <button
           className="button-secondary h-8 w-8 p-0 text-2xl font-medium"
