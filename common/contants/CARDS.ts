@@ -44,54 +44,54 @@ export const CARDS: Card[] = [
   },
 
   {
-    name: 'Wywieźli cię na WOLO.',
+    name: 'You go to the hospital.',
     type: CardType.MOVE,
     placeIndex: 24,
   },
   {
-    name: 'Wywieźli cię na wytrzeźwialke.',
+    name: 'You got caught by the police and go to prison.',
     type: CardType.MOVE,
     placeIndex: 16,
   },
   {
-    name: 'Wywieźli cię na ryneczek.',
+    name: 'You go to city square.',
     type: CardType.MOVE,
     placeIndex: 8,
   },
   {
-    name: 'Wywieźli cię na altany.',
+    name: "You go to McDonald's",
     type: CardType.MOVE,
-    placeIndex: 3,
+    placeIndex: 7,
   },
   {
-    name: 'Wywieźli cię na owsiszcze.',
+    name: 'You go to club to dance.',
+    type: CardType.MOVE,
+    placeIndex: 27,
+  },
+  {
+    name: 'You go to the park.',
     type: CardType.MOVE,
     placeIndex: 5,
   },
   {
-    name: 'Idziesz do biedry na zakupy',
+    name: 'You go to the gas station.',
     type: CardType.MOVE,
-    placeIndex: 11,
+    placeIndex: 17,
   },
   {
-    name: 'Wywieźli cię na zmyrzlinę.',
-    type: CardType.MOVE,
-    placeIndex: 13,
-  },
-  {
-    name: 'Zaś do olzy na megok.',
+    name: 'You need some drink so you go to the bar.',
     type: CardType.MOVE,
     placeIndex: 21,
   },
   {
-    name: 'Wbijasz na stodołe.',
+    name: 'You go to the casino to gamble.',
     type: CardType.MOVE,
-    placeIndex: 29,
+    placeIndex: 30,
   },
   {
-    name: 'Wbijasz na Akacjową 16.',
+    name: 'You go to play some games.',
     type: CardType.MOVE,
-    placeIndex: 31,
+    placeIndex: 15,
   },
 
   { name: 'You pay $100.', type: CardType.PAY, value: 100 },
